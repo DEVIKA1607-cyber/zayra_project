@@ -1,0 +1,419 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zayra - Welcome Back</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #001233;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 46px 16px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 22px;
+            width: 100%;
+            max-width: 1426px;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .login-card {
+            background-color: #ffffff;
+            border-radius: 30px;
+            padding: 32px 24px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+        }
+
+        .title-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #33415c;
+            margin-bottom: -8px;
+        }
+
+        .subtitle {
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 1.2;
+            color: #33415c;
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.2;
+            color: #979dac;
+            margin-bottom: 12px;
+            display: block;
+            text-align: left;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 12px;
+            font-size: 18px;
+            font-style: italic;
+            color: #7d8597;
+            background-color: #f2f2f2;
+            border: 1px solid rgba(0, 0, 0, 0.39);
+            border-radius: 5px;
+            box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.25);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #2379cf;
+            box-shadow: 0 0 0 2px rgba(35, 121, 207, 0.2);
+        }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-input {
+            padding-right: 50px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .password-toggle img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .forgot-password {
+            font-size: 18px;
+            color: #2379cf;
+            text-decoration: none;
+            text-align: right;
+            display: block;
+            margin-bottom: 24px;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #1a5a9a;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 20px 34px;
+            font-size: 24px;
+            font-weight: 700;
+            font-style: italic;
+            color: #ffffff;
+            background-color: #5c677d;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .login-button:hover {
+            background-color: #4a5568;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .signup-section {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-wrap: wrap;
+        }
+
+        .signup-text {
+            font-size: 18px;
+            color: #000000;
+        }
+
+        .signup-link {
+            font-size: 18px;
+            color: #68a3de;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .signup-link:hover {
+            color: #4a90e2;
+            text-decoration: underline;
+        }
+
+        @media (min-width: 640px) {
+            .logo {
+                width: 150px;
+            }
+
+            .login-card {
+                padding: 48px 40px;
+                max-width: 600px;
+            }
+
+            .title {
+                font-size: 40px;
+            }
+
+            .subtitle {
+                font-size: 40px;
+            }
+
+            .form-label {
+                font-size: 28px;
+            }
+
+            .form-input {
+                font-size: 20px;
+                padding: 18px 16px;
+            }
+
+            .forgot-password {
+                font-size: 20px;
+            }
+
+            .login-button {
+                font-size: 28px;
+            }
+
+            .signup-text, .signup-link {
+                font-size: 20px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 46px 56px;
+            }
+
+            .login-card {
+                max-width: 700px;
+                padding: 60px 50px;
+            }
+
+            .title {
+                font-size: 48px;
+            }
+
+            .subtitle {
+                font-size: 48px;
+            }
+
+            .form-label {
+                font-size: 32px;
+            }
+
+            .form-input {
+                font-size: 22px;
+            }
+
+            .forgot-password {
+                font-size: 22px;
+            }
+
+            .login-button {
+                font-size: 32px;
+            }
+
+            .signup-text, .signup-link {
+                font-size: 22px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .login-card {
+                max-width: 904px;
+                padding: 80px 60px;
+            }
+
+            .title {
+                font-size: 48px;
+                line-height: 59px;
+            }
+
+            .subtitle {
+                font-size: 48px;
+                line-height: 59px;
+            }
+
+            .form-label {
+                font-size: 40px;
+                line-height: 49px;
+            }
+
+            .form-input {
+                font-size: 24px;
+                line-height: 30px;
+            }
+
+            .password-input {
+                font-size: 40px;
+                line-height: 49px;
+            }
+
+            .forgot-password {
+                font-size: 25px;
+                line-height: 31px;
+            }
+
+            .login-button {
+                font-size: 36px;
+                line-height: 44px;
+            }
+
+            .signup-text {
+                font-size: 24px;
+                line-height: 30px;
+            }
+
+            .signup-link {
+                font-size: 25px;
+                line-height: 31px;
+            }
+        }
+    </style>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fthanushree3116back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+</head>
+<body>
+    <div class="container">
+        <img src="{% static 'accounts/imgs/logo.jpg' %}" alt="Zayra Logo" class="logo" />
+        
+        <div class="login-card">
+            <div class="form-container">
+                <div class="title-section">
+                    <h1 class="title">Zayra</h1>
+                    <h2 class="subtitle">Welcome back!</h2>
+                </div>
+                
+                <form class="login-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address:</label>
+                        <input type="email" id="email" class="form-input" placeholder=" Enter your email..." required />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password:</label>
+                        <div class="password-container">
+                            <input type="password" id="password" class="form-input password-input" placeholder=".............." required />
+                            <button type="button" class="password-toggle" onclick="togglePassword()">
+                                <img src="{% static 'accounts/imgs/show.png' %}" alt="Show/Hide Password" id="toggleIcon" />
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="forgot-password">Forgot Password ?</a>
+                    
+                    <button type="submit" class="login-button">Login</button>
+                    
+                    <div class="signup-section">
+                        <span class="signup-text">Don't have an account?</span>
+                        <a href="#" class="signup-link">create an account</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (email && password) {
+                // Add login logic here
+                console.log('Login attempt:', { email, password });
+                alert('Login functionality would be implemented here');
+            } else {
+                alert('Please fill in all fields');
+            }
+        }
+
+        // Add smooth transitions for form interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.form-input');
+            
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
