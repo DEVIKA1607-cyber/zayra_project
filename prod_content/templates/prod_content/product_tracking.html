@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Product Details</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #0b1a3d;
+    color: white;
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: 40px auto;
+  }
+  .header {
+    font-weight: bold;
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+  .product-card {
+    background-color: #1a2b57;
+    border-radius: 12px;
+    padding: 25px 30px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .product-info {
+    max-width: 70%;
+  }
+  .product-title {
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  .price {
+    font-weight: 700;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .offer {
+    color: #2ecc71;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .seller {
+    font-size: 16px;
+    margin-top: 8px;
+    color: #ccc;
+  }
+  .product-image img {
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  .order-tracking {
+    background-color: #223662;
+    border-radius: 12px;
+    padding: 20px 25px;
+    font-size: 16px;
+    margin-bottom: 25px;
+    color: #eee;
+  }
+
+  /* Connected shipping progress */
+  .status-progress-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+    padding: 0 15px;
+  }
+  .status-progress-container::before {
+    content: '';
+    position: absolute;
+    top: 50%; /* center line vertically */
+    left: 15px;
+    right: 15px;
+    height: 6px;
+    background-color: #2ecc71;
+    border-radius: 3px;
+    z-index: 1;
+    transform: translateY(-50%);
+  }
+  .status-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  .circle {
+    width: 40px;          /* updated size for equal circles */
+    height: 40px;
+    background-color: #2ecc71;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(46, 204, 113, 0.8);
+    margin-bottom: 7px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    font-weight: bold;
+    color: white;
+    font-size: 16px;
+  }
+  .label {
+    font-size: 14px;
+    color: #eee;
+    font-weight: 600;
+    text-align: center;
+    user-select: none;
+    max-width: 110px;
+    line-height: 1.3;
+  }
+
+  .updates {
+    color: #3b82f6;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: auto;
+    user-select: none;
+    transition: color 0.3s ease;
+    font-size: 16px;
+  }
+  .updates:hover {
+    color: #1e40af;
+    text-decoration: underline;
+  }
+  .return-policy {
+    margin-top: 16px;
+    font-size: 15px;
+  }
+  .return-policy a {
+    color: #3b82f6;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .return-policy a:hover {
+    text-decoration: underline;
+  }
+  .rating-section {
+    background-color: #000a21;
+    border-radius: 8px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .rating-label {
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .stars {
+    display: flex;
+    gap: 10px;
+  }
+  .stars span {
+    font-size: 32px;
+    color: #888;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.25s ease;
+  }
+  .stars span:hover,
+  .stars span.active {
+    color: #ffcc00;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">PRODUCT ID: 23476</div>
+
+<div class="product-card">
+  <div class="product-info">
+    <div class="product-title">TRADITIONAL SOFA</div>
+    <div class="price">
+      ₹ 28,000 
+      <span class="offer">33% offer</span>
+    </div>
+    <div class="seller">Seller: vasanth&amp;co</div>
+  </div>
+  <div class="product-image">
+    <img src="{% static 'prod_content/imgs/logo.jpg' %}" alt="Traditional Sofa" />
+  </div>
+</div>
+
+<div class="order-tracking">
+  <div class="status-progress-container">
+    <div class="status-step">
+      <div class="circle">✓</div>
+      <div class="label">OrderConfirmed,<br>Jul 07</div>
+    </div>
+    <div class="status-step">
+      <div class="circle">🚚</div>
+      <div class="label">Delivered,<br>Jul 15</div>
+    </div>
+  </div>
+
+  <div class="updates">See All Update&gt;</div>
+
+  <div class="return-policy">
+    Product has no-return policy <a href="#">Know more</a>
+  </div>
+</div>
+
+<div class="rating-section">
+  <div class="rating-label">Rate the Product</div>
+  <div class="stars" aria-label="Star rating">
+    <span title="1 star">&#9733;</span>
+    <span title="2 stars">&#9733;</span>
+    <span title="3 stars">&#9733;</span>
+    <span title="4 stars">&#9733;</span>
+    <span title="5 stars">&#9733;</span>
+  </div>
+</div>
+
+</body>
+</html>
