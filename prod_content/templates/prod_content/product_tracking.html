@@ -1,227 +1,169 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Product Details</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #0b1a3d;
-    color: white;
-    padding: 40px 20px;
-    max-width: 1100px;
-    margin: 40px auto;
-  }
-  .header {
-    font-weight: bold;
-    font-size: 28px;
-    margin-bottom: 24px;
-  }
-  .product-card {
-    background-color: #1a2b57;
-    border-radius: 12px;
-    padding: 25px 30px;
-    margin-bottom: 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .product-info {
-    max-width: 70%;
-  }
-  .product-title {
-    font-weight: 700;
-    font-size: 24px;
-    margin-bottom: 8px;
-  }
-  .price {
-    font-weight: 700;
-    font-size: 28px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .offer {
-    color: #2ecc71;
-    font-weight: 600;
-    font-size: 18px;
-  }
-  .seller {
-    font-size: 16px;
-    margin-top: 8px;
-    color: #ccc;
-  }
-  .product-image img {
-    height: 150px;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-  .order-tracking {
-    background-color: #223662;
-    border-radius: 12px;
-    padding: 20px 25px;
-    font-size: 16px;
-    margin-bottom: 25px;
-    color: #eee;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Detail</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #021837;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
 
-  /* Connected shipping progress */
-  .status-progress-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    margin-bottom: 20px;
-    padding: 0 15px;
-  }
-  .status-progress-container::before {
-    content: '';
-    position: absolute;
-    top: 50%; /* center line vertically */
-    left: 15px;
-    right: 15px;
-    height: 6px;
-    background-color: #2ecc71;
-    border-radius: 3px;
-    z-index: 1;
-    transform: translateY(-50%);
-  }
-  .status-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    z-index: 2;
-  }
-  .circle {
-    width: 40px;          /* updated size for equal circles */
-    height: 40px;
-    background-color: #2ecc71;
-    border-radius: 50%;
-    box-shadow: 0 0 8px rgba(46, 204, 113, 0.8);
-    margin-bottom: 7px;
-    flex-shrink: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-    font-weight: bold;
-    color: white;
-    font-size: 16px;
-  }
-  .label {
-    font-size: 14px;
-    color: #eee;
-    font-weight: 600;
-    text-align: center;
-    user-select: none;
-    max-width: 110px;
-    line-height: 1.3;
-  }
+    .search-bar {
+      border-radius: 25px;
+      padding: 8px 20px;
+      border: none;
+      width: 100%;
+    }
 
-  .updates {
-    color: #3b82f6;
-    font-weight: 600;
-    cursor: pointer;
-    margin-left: auto;
-    user-select: none;
-    transition: color 0.3s ease;
-    font-size: 16px;
-  }
-  .updates:hover {
-    color: #1e40af;
-    text-decoration: underline;
-  }
-  .return-policy {
-    margin-top: 16px;
-    font-size: 15px;
-  }
-  .return-policy a {
-    color: #3b82f6;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  .return-policy a:hover {
-    text-decoration: underline;
-  }
-  .rating-section {
-    background-color: #000a21;
-    border-radius: 8px;
-    padding: 18px 20px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-  }
-  .rating-label {
-    font-weight: 600;
-    font-size: 18px;
-  }
-  .stars {
-    display: flex;
-    gap: 10px;
-  }
-  .stars span {
-    font-size: 32px;
-    color: #888;
-    cursor: pointer;
-    user-select: none;
-    transition: color 0.25s ease;
-  }
-  .stars span:hover,
-  .stars span.active {
-    color: #ffcc00;
-  }
-</style>
+    .product-box {
+      background-color: #1c2f53;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    .product-img {
+      width: 100px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 10px;
+      height: 100%;
+      width: 2px;
+      background-color: green;
+    }
+
+    .timeline .dot {
+      width: 12px;
+      height: 12px;
+      background-color: green;
+      border-radius: 50%;
+      position: absolute;
+      left: 5px;
+    }
+
+    .rating-stars i {
+      color: white;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .rating-stars i:hover,
+    .rating-stars i.active {
+      color: gold;
+    }
+
+    .footer-box {
+      border-top: 1px solid #555;
+      padding-top: 10px;
+      margin-top: 20px;
+    }
+
+    .btn-back {
+      background: none;
+      border: none;
+      color: white;
+    }
+
+    .search-wrapper {
+      background-color: #fff;
+      border-radius: 25px;
+      padding: 5px 15px;
+    }
+  </style>
 </head>
 <body>
 
-<div class="header">PRODUCT ID: 23476</div>
-
-<div class="product-card">
-  <div class="product-info">
-    <div class="product-title">TRADITIONAL SOFA</div>
-    <div class="price">
-      ₹ 28,000 
-      <span class="offer">33% offer</span>
+  <div class="container mt-4">
+    <!-- Top Row -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <button class="btn-back">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div class="flex-grow-1 mx-2">
+        <input type="text" class="form-control search-bar" placeholder="Search Zayra.in" />
+      </div>
+      <div>
+        <i class="fas fa-user mx-2"></i>
+        <i class="fas fa-shopping-cart"></i>
+      </div>
     </div>
-    <div class="seller">Seller: vasanth&amp;co</div>
-  </div>
-  <div class="product-image">
-    <img src="{% static 'prod_content/imgs/logo.jpg' %}" alt="Traditional Sofa" />
-  </div>
-</div>
 
-<div class="order-tracking">
-  <div class="status-progress-container">
-    <div class="status-step">
-      <div class="circle">✓</div>
-      <div class="label">OrderConfirmed,<br>Jul 07</div>
+    <!-- Product ID -->
+    <h6>PRODUCT ID: 23476</h6>
+
+    <!-- Product Info -->
+    <div class="product-box d-flex justify-content-between align-items-center">
+      <div>
+        <h5>TRADITIONAL SOFA</h5>
+        <p class="mb-1">Seller: vasanth&co</p>
+        <h4>₹28,000 <span class="text-success fs-6">33% offer</span></h4>
+      </div>
+      <img src="{% static 'prod_content/imgs/sofa.jpg' %}" alt="Sofa" class="product-img">
     </div>
-    <div class="status-step">
-      <div class="circle">🚚</div>
-      <div class="label">Delivered,<br>Jul 15</div>
+
+    <!-- Order Status -->
+    <div class="product-box">
+      <div class="timeline">
+        <div class="dot" style="top: 0;"></div>
+        <p class="mb-1 ms-4">Order Confirmed, Jul 07</p>
+
+        <div class="dot" style="top: 40px;"></div>
+        <p class="mb-1 ms-4">Delivered, Jul 15</p>
+      </div>
+      <a href="#" class="text-info small">See All Update ></a>
+      <p class="mt-2 small">Product has no-return policy <a href="#" class="text-info">Know more</a></p>
+    </div>
+
+    <!-- Rating -->
+    <div class="footer-box">
+      <div class="d-flex align-items-center">
+        <i class="fas fa-box me-2"></i>
+        <strong>Rate the Product</strong>
+      </div>
+      <div class="rating-stars mt-2">
+        <i class="fas fa-star" onclick="rate(this)"></i>
+        <i class="fas fa-star" onclick="rate(this)"></i>
+        <i class="fas fa-star" onclick="rate(this)"></i>
+        <i class="fas fa-star" onclick="rate(this)"></i>
+        <i class="fas fa-star" onclick="rate(this)"></i>
+      </div>
     </div>
   </div>
 
-  <div class="updates">See All Update&gt;</div>
-
-  <div class="return-policy">
-    Product has no-return policy <a href="#">Know more</a>
-  </div>
-</div>
-
-<div class="rating-section">
-  <div class="rating-label">Rate the Product</div>
-  <div class="stars" aria-label="Star rating">
-    <span title="1 star">&#9733;</span>
-    <span title="2 stars">&#9733;</span>
-    <span title="3 stars">&#9733;</span>
-    <span title="4 stars">&#9733;</span>
-    <span title="5 stars">&#9733;</span>
-  </div>
-</div>
+  <script>
+    function rate(el) {
+      const stars = document.querySelectorAll('.rating-stars i');
+      let clicked = false;
+      stars.forEach((star, index) => {
+        star.classList.remove('active');
+        if (!clicked && star === el) {
+          clicked = true;
+          for (let i = 0; i <= index; i++) {
+            stars[i].classList.add('active');
+          }
+        }
+      });
+    }
+  </script>
 
 </body>
 </html>
