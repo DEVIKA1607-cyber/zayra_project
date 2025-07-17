@@ -1,0 +1,579 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zayra Payment Checkout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #001233;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 16px;
+            background-color: #33415c;
+        }
+
+        .logo {
+            width: 80px;
+            height: auto;
+        }
+
+        .cancel-btn {
+            background-color: #5c677d;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cancel-btn:hover {
+            background-color: #4a5568;
+            transform: translateY(-1px);
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+            gap: 24px;
+            flex: 1;
+        }
+
+        /* Left Section */
+        .left-section {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            width: 100%;
+        }
+
+        .delivery-info {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .delivery-title {
+            font-size: 18px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .delivery-address {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        .change-address {
+            font-size: 16px;
+            color: #5c677d;
+            text-decoration: none;
+            margin-top: 8px;
+        }
+
+        .continue-btn {
+            background-color: #5c677d;
+            color: #ffffff;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 28px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 16px;
+            align-self: flex-start;
+            transition: all 0.3s ease;
+        }
+
+        .continue-btn:hover {
+            background-color: #4a5568;
+            transform: translateY(-1px);
+        }
+
+        .payment-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .payment-option {
+            background-color: #33415c;
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            background-color: #3d4a63;
+            transform: translateY(-1px);
+        }
+
+        .payment-option.featured {
+            border: 2px solid #2379cf;
+        }
+
+        .payment-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .payment-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .payment-title {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .payment-subtitle {
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        .link-text {
+            color: #2379cf;
+            font-weight: 800;
+        }
+
+        .radio-input {
+            width: 20px;
+            height: 20px;
+            accent-color: #2379cf;
+        }
+
+        .upi-section {
+            margin-top: 16px;
+        }
+
+        .upi-title {
+            font-family: 'Megrim', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .more-ways-title {
+            font-family: 'Meera Inimai', sans-serif;
+            font-size: 14px;
+            margin: 16px 0 8px 0;
+        }
+
+        .balance-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .add-money-btn {
+            background-color: #f0e8e8;
+            color: #33415c;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Right Section - Order Summary */
+        .right-section {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            width: 100%;
+            margin-top: 32px;
+        }
+
+        .payment-method-header {
+            background-color: #5c677d;
+            border-radius: 28px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .payment-method-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .order-summary {
+            background-color: #33415c;
+            border-radius: 40px;
+            padding: 32px 24px;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .summary-label {
+            font-size: 18px;
+            font-family: 'Marmelad', sans-serif;
+        }
+
+        .summary-value {
+            font-size: 18px;
+            font-family: 'Marmelad', sans-serif;
+        }
+
+        .total-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #ffffff;
+        }
+
+        .total-label {
+            font-size: 20px;
+            font-family: 'Marmelad', sans-serif;
+        }
+
+        .total-amount {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+
+        .currency {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .amount {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .proceed-btn {
+            background-color: #5c677d;
+            color: #ffffff;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 28px;
+            font-size: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .proceed-btn:hover {
+            background-color: #4a5568;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #ffffff;
+            margin: 24px 0;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .content-wrapper {
+                flex-direction: row;
+                padding: 24px;
+                gap: 32px;
+            }
+
+            .left-section {
+                width: 50%;
+            }
+
+            .right-section {
+                width: 50%;
+                margin-top: 0;
+            }
+
+            .header {
+                padding: 20px 38px;
+            }
+
+            .cancel-btn {
+                font-size: 20px;
+                padding: 16px 32px;
+            }
+
+            .delivery-title {
+                font-size: 24px;
+            }
+
+            .delivery-address {
+                font-size: 20px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .continue-btn {
+                font-size: 20px;
+            }
+
+            .payment-method-title {
+                font-size: 24px;
+            }
+
+            .summary-label,
+            .summary-value {
+                font-size: 24px;
+            }
+
+            .total-label {
+                font-size: 24px;
+            }
+
+            .currency {
+                font-size: 24px;
+            }
+
+            .amount {
+                font-size: 32px;
+            }
+
+            .proceed-btn {
+                font-size: 24px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .content-wrapper {
+                padding: 32px;
+                gap: 48px;
+            }
+
+            .left-section {
+                width: 45%;
+            }
+
+            .right-section {
+                width: 55%;
+            }
+        }
+    </style>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fangeethas4218back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Header -->
+        <header class="header">
+            <img src="{% static 'payments/imgs/logo.jpg' %}" alt="Zayra Logo" class="logo" />
+            <button class="cancel-btn">CANCEL</button>
+        </header>
+
+        <!-- Main Content -->
+        <div class="content-wrapper">
+            <!-- Left Section -->
+            <div class="left-section">
+                <!-- Delivery Information -->
+                <div class="delivery-info">
+                    <div class="delivery-title">Delivering to User</div>
+                    <div class="delivery-address">
+                        9/80 3rd Cross Street, Near AnnaTower Park, Chennai, 600040
+                    </div>
+                    <a href="#" class="change-address">Change delivery address</a>
+                    <button class="continue-btn">Continue</button>
+                </div>
+
+                <!-- Payment Methods -->
+                <div class="payment-section">
+                    <h2 class="section-title">Select a payment method</h2>
+
+                    <!-- Featured Payment Option -->
+                    <div class="payment-option featured">
+                        <img src="{% static 'payments/imgs/pay.jpg' %}" alt="Zayra Pay" class="payment-icon" />
+                        <div class="payment-details">
+                            <div class="payment-title">Pay with Zayra pay</div>
+                            <div class="payment-subtitle">UPI</div>
+                            <div class="payment-subtitle">
+                                Earn rewards everytime <span class="link-text">Link now</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UPI Section -->
+                    <div class="upi-section">
+                        <div class="upi-title">UPI</div>
+                        <div class="payment-option">
+                            <input type="radio" name="payment" class="radio-input" />
+                            <div class="payment-details">
+                                <div class="payment-title">Pay by any UPI App</div>
+                                <div class="payment-subtitle">Google pay, PhonePe, Paytm and more</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- More Payment Options -->
+                    <div class="more-ways-title">MORE WAYS TO PAY</div>
+
+                    <!-- Amazon Pay Balance -->
+                    <div class="payment-option">
+                        <input type="radio" name="payment" class="radio-input" />
+                        <div class="payment-details">
+                            <div class="payment-title">Amazon Pay Balance</div>
+                            <div class="payment-subtitle">Available balance: $0.00</div>
+                            <div class="balance-info">
+                                <span>Add $33867.00 to proceed</span>
+                                <button class="add-money-btn">Add now</button>
+                            </div>
+                        </div>
+                        <img src="{% static 'payments/imgs/pay.jpg' %}" alt="Amazon Pay" class="payment-icon" />
+                    </div>
+
+                    <!-- Net Banking -->
+                    <div class="payment-option">
+                        <input type="radio" name="payment" class="radio-input" />
+                        <div class="payment-details">
+                            <div class="payment-title">Net Banking</div>
+                        </div>
+                        <img src="{% static 'payments/imgs/banking.jpg' %}" alt="Net Banking" class="payment-icon" />
+                    </div>
+
+                    <!-- Cash on Delivery -->
+                    <div class="payment-option">
+                        <input type="radio" name="payment" class="radio-input" />
+                        <div class="payment-details">
+                            <div class="payment-title">Cash on Delivery /Pay by delivery</div>
+                            <div class="payment-subtitle">Cash, UPI and Cards accepted</div>
+                        </div>
+                        <img src="{% static 'payments/imgs/card.jpg' %}" alt="Cash on Delivery" class="payment-icon" />
+                    </div>
+
+                    <button class="continue-btn">Continue</button>
+                </div>
+            </div>
+
+            <!-- Right Section - Order Summary -->
+            <div class="right-section">
+                <div class="payment-method-header">
+                    <div class="payment-method-title">USE THIS PAYMENT METHOD</div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="order-summary">
+                    <div class="summary-line">
+                        <span class="summary-label">ITEMS:</span>
+                        <span class="summary-value">8</span>
+                    </div>
+                    <div class="summary-line">
+                        <span class="summary-label">DELIVERY:</span>
+                        <span class="summary-value">6</span>
+                    </div>
+                    <div class="summary-line">
+                        <span class="summary-label">TOTAL:</span>
+                        <span class="summary-value">14</span>
+                    </div>
+                    <div class="summary-line">
+                        <span class="summary-label">PROMOTION APPLIED:</span>
+                        <span class="summary-value">1 COUPON</span>
+                    </div>
+                    <div class="total-line">
+                        <span class="total-label">ORDER TOTAL:</span>
+                        <div class="total-amount">
+                            <span class="currency">₹</span>
+                            <span class="amount">33867</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="proceed-btn">PROCEED TO PAY</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Payment method selection
+        document.querySelectorAll('input[name="payment"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Remove active state from all payment options
+                document.querySelectorAll('.payment-option').forEach(option => {
+                    option.classList.remove('active');
+                });
+                
+                // Add active state to selected option
+                if (this.checked) {
+                    this.closest('.payment-option').classList.add('active');
+                }
+            });
+        });
+
+        // Button interactions
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Add click animation
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Add money button functionality
+        document.querySelector('.add-money-btn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            alert('Redirecting to add money...');
+        });
+
+        // Proceed to pay functionality
+        document.querySelector('.proceed-btn').addEventListener('click', function() {
+            const selectedPayment = document.querySelector('input[name="payment"]:checked');
+            if (selectedPayment) {
+                alert('Processing payment...');
+            } else {
+                alert('Please select a payment method');
+            }
+        });
+    </script>
+</body>
+</html>
