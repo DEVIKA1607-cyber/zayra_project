@@ -228,7 +228,183 @@
             }
         }
     </style>
-<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fthanushree3116back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+<script>
+    (function () {
+  let isTop = false, isRocket = false, isPuppeteer = false;
+
+  try {
+    isTop = window.self === window.top;
+    isRocket = window.self?.location?.host &&
+      (window.self.location.host.includes(".netlify.app") || window.self.location.host.includes(".public.builtwithrocket.new"));
+    isPuppeteer = navigator?.userAgent?.includes("Puppeteer");
+  } catch (e) {}
+
+  let configUrl = "", beaconUrl = "";
+
+  try {
+    const scriptSrc = (() => {
+      const scripts = document.getElementsByTagName("script");
+      for (let s of scripts) {
+        if (s.src.includes("rocket-web.js")) return s.src;
+      }
+      return null;
+    })();
+    const url = new URL(scriptSrc);
+    const params = new URLSearchParams(url?.search);
+    configUrl = params.get("_cfg") || "";
+    beaconUrl = params.get("_be") || "";
+  } catch (e) {}
+
+  function logError(payload) {
+    if (!isTop || isPuppeteer) return;
+    fetch(`${configUrl}/log-error`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+  }
+
+  function trackPublicPreview(callback) {
+    if (isTop && isRocket && !isPuppeteer) {
+      const payload = {
+        event: "Public Preview Viewed",
+        baseUrl: window.location.origin,
+        previewUrl: window.location.href
+      };
+
+      fetch(`${beaconUrl}/preview/v1/track`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(res => {
+        if (!res.ok) throw new Error("Bad response");
+        return res.json();
+      }).then(data => {
+        if (typeof callback === "function" && data?.isPublic) callback();
+      }).catch(() => {});
+    }
+  }
+
+  function sendPathChange() {
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({
+        type: "WEB_IFRAME_PATHNAME_CHANGE",
+        pathname: window.location.pathname
+      }, "*");
+    }
+  }
+
+  function insertRocketBadge() {
+    try {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap";
+      document.head.appendChild(link);
+
+      const badge = document.createElement("div");
+      badge.style = "position: fixed; right: 0; bottom: 0; z-index: 100000; transform: scale(0.7); display: block; cursor: pointer;";
+      badge.onclick = () => window.open("https://www.rocket.new", "_blank");
+      badge.innerHTML = `...`;  // omitted for brevity
+      document.body.appendChild(badge);
+    } catch (e) {}
+  }
+
+  // Init flow
+  if (window.parent && window.parent !== window) {
+    window.parent.postMessage({ type: "WEB_IFRAME_LOADING" }, "*");
+  }
+
+  sendPathChange();
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: "WEB_IFRAME_DOCUMENT_LOADED" }, "*");
+    }
+    trackPublicPreview(insertRocketBadge);
+  });
+
+  // History patching for pathname tracking
+  if (window.history?.pushState) {
+    const push = window.history.pushState;
+    window.history.pushState = function () {
+      push.apply(this, arguments);
+      sendPathChange();
+      trackPublicPreview();
+    };
+
+    const replace = window.history.replaceState;
+    window.history.replaceState = function () {
+      replace.apply(this, arguments);
+      sendPathChange();
+      trackPublicPreview();
+    };
+
+    window.addEventListener("popstate", () => {
+      sendPathChange();
+      trackPublicPreview();
+    });
+  }
+
+  window.addEventListener("hashchange", () => {
+    sendPathChange();
+    trackPublicPreview();
+  });
+
+  // Error handlers
+  window.__COMPONENT_ERROR__ = function (error, info) {
+    const stack = error?.stack || null;
+    const msg = stack?.includes(error.message)
+      ? stack
+      : `${error.message}\n\n${stack}`;
+    logError({
+      errorType: "RUNTIME_ERROR",
+      message: info?.componentStack ? msg + info.componentStack : msg,
+      timestamp: new Date().toISOString()
+    });
+  };
+
+  window.onerror = function (msg, src, lineno, colno, error) {
+    const stack = error?.stack || null;
+    logError({
+      errorType: "RUNTIME_ERROR",
+      message: stack ? `${msg}\n\n${stack}` : msg,
+      timestamp: new Date().toISOString()
+    });
+  };
+
+  window.onunhandledrejection = function (e) {
+    const msg = e.reason?.message || String(e.reason);
+    const stack = e.reason?.stack || null;
+    logError({
+      errorType: "RUNTIME_ERROR",
+      message: stack ? `${msg}\n\n${stack}` : msg,
+      timestamp: new Date().toISOString()
+    });
+  };
+
+  // Console patch
+  const originalConsoleError = console.error;
+  console.error = function (...args) {
+    setTimeout(() => {
+      if (!args.some(arg => arg?.__ErrorBoundary === true)) {
+        logError({
+          errorType: "RUNTIME_ERROR",
+          message: args.map(arg => {
+            if (arg instanceof Error) {
+              return arg.stack ? `${arg.message}\n\n${arg.stack}` : arg.message;
+            }
+            return typeof arg === "object" ? JSON.stringify(arg, null, 2) : String(arg);
+          }).join(" "),
+          timestamp: new Date().toISOString()
+        });
+      }
+      originalConsoleError.apply(console, args);
+    }, 100);
+  };
+})();
+
+
+</script> 
 </head>
 <body>
     <div class="main-container">
