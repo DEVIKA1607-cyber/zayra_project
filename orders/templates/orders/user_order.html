@@ -53,6 +53,7 @@
       margin-bottom: 40px;
     }
 
+    .button-group a,
     .button-group button,
     .logout {
       background-color: #7a869a;
@@ -64,8 +65,12 @@
       cursor: pointer;
       transition: background 0.2s;
       font-size: 1rem;
+      text-align: center;
+      display: inline-block;
+      text-decoration: none;
     }
 
+    .button-group a:hover,
     .button-group button:hover,
     .logout:hover {
       background-color: #5f6d82;
@@ -86,23 +91,23 @@
     </div>
 
     <div class="button-group">
-      <button onclick="handleClick('Orders')">Orders</button>
+      <!-- Changed Orders button to a link -->
+      <a href="{% url 'order_detail' %}">Orders</a>
+      
       <button onclick="handleClick('Coupons')">Coupons</button>
       <button onclick="handleClick('Help center')">Help center</button>
       <button onclick="handleClick('Notifications')">Notifications</button>
     </div>
 
-    <button class="logout" onclick="logout()">LOGOUT</button>
+    <div class="logout" ><a href="{% url 'login' %}" style="text-decoration: none; color: #ffffff;">Logout</a></div>
   </div>
 
   <script>
     function handleClick(name) {
-      alert(${name} clicked!);
+      alert(name + " clicked!");
     }
 
-    function logout() {
-      alert("Logging out...");
-    }
+    
   </script>
 
 </body>

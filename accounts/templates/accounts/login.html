@@ -329,6 +329,21 @@
                 font-size: 25px;
                 line-height: 31px;
             }
+            .createbutton {
+              display: inline-block;
+              align-content: center;
+              padding: 10px 20px;
+              background-color: #1e3a8a;
+              color: white;
+              border-radius: 5px;
+              text-decoration: none;
+              font-weight: bold;
+              font-size: larger;
+              margin-left: 170px;
+          }
+          .createbutton:hover {
+              background-color: #1d4ed8;
+          }
         }
     </style>
 <script>
@@ -809,11 +824,11 @@
                     
                     <a href="#" class="forgot-password">Forgot Password ?</a>
                     
-                    <button type="submit" class="login-button">Login</button>
+                    <a href="{% url 'homepage'%}" class="createbutton">Login</a>
                     
                     <div class="signup-section">
                         <span class="signup-text">Don't have an account?</span>
-                        <a href="#" class="signup-link">create an account</a>
+                        <a href="{% url 'signup' %}" class="signup-link">create an account</a>
                     </div>
                 </form>
             </div>

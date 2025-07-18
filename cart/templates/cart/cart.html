@@ -136,7 +136,7 @@
     </div>
 
     {% if request.session.cart %}
-      <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+      <div class="checkout-btn" id="checkoutBtn"><a href="{% url 'payment'%}">Proceed to Checkout</a></div>
     {% endif %}
   </div>
 

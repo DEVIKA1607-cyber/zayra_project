@@ -165,7 +165,7 @@
     <div>Appliances</div>
     <div>Grocery</div>
     <div>Kitchen Items</div>
-    <div>Beauty</div>
+    <div><a href="{% url 'product_detail' 1 %}" style="text-decoration:none; color: white;">Furniture</a></div>
     <div>Toys</div>
     <div>Books & More</div>
   </div>
@@ -198,20 +198,20 @@
   </div>
 
   <div class="side-menu">
-    <div onclick="location.href='{% url 'homepage' %}'">
+    <div>
       <span>&#8962;</span> Home
     </div>
-    <div onclick="location.href='{% url 'wishlist' %}'">
-      <span>&#10084;</span> Wishlist
+    <div >
+      <a href="{% url 'wishlist' %}" style="text-decoration: none; color: white;"><span>&#10084;</span> Wishlist</a>
     </div>
     <div>
-      <span>&#9776;</span> Categories
+      <span><a href="" style="text-decoration: none; color: white;"><span>&#10084;</span> Categories</a>
     </div>
     <div>
-      <span>&#128100;</span> Account
+      <span><a href="{% url 'profile_detail' %}" style="text-decoration: none; color: white;"><span>&#128100;</span> Profile</a>
     </div>
-    <div onclick="location.href='{% url 'cart' %}'">
-      <span>&#128722;</span> Cart
+    <div >
+      <a href="{% url 'cart' %}" style="text-decoration: none; color: white;"><span>&#128722;</span> Cart</a>
     </div>
   </div>
 

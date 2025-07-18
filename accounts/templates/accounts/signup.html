@@ -226,6 +226,19 @@
                 padding: 22px 48px;
                 margin-top: 76px;
             }
+            .createbutton {
+              display: inline-block;
+              padding: 10px 20px;
+              background-color: #1e3a8a;
+              color: white;
+              border-radius: 5px;
+              text-decoration: none;
+              font-weight: bold;
+          }
+          .createbutton:hover {
+              background-color: #1d4ed8;
+          }
+
         }
     </style>
 <script>
@@ -435,7 +448,7 @@
                 </button>
             </div>
             
-            <button type="submit" class="create-button">Create your zayra account</button>
+            <a href="{% url 'homepage'%}" class="createbutton">Create your zayra account</a>
         </form>
     </div>
 
