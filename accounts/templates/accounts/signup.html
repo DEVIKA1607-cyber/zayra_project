@@ -1,503 +1,84 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zayra - Create Account</title>
+    <meta charset="UTF-8">
+    <title>Signup - Zayra</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #001233;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
+            background: #001233;
+            font-family: Arial, sans-serif;
         }
-
-        .main-container {
-            width: 100%;
-            max-width: 600px;
-            background-color: #33415c;
-            border-radius: 12px;
-            padding: 28px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .logo {
-            width: 120px;
-            height: auto;
-            margin-bottom: 26px;
-        }
-
-        .title {
-            font-size: 28px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            line-height: 1.2;
-            text-align: center;
-            color: #ffffff;
-            margin-bottom: 32px;
-        }
-
         .form-container {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
+            max-width: 400px;
+            margin: 60px auto;
+            background:#33415C;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
-
-        .input-group {
-            position: relative;
-            width: 100%;
-        }
-
         .form-input {
-            width: 100%;
-            font-size: 18px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            line-height: 1.25;
-            color: #000000;
-            background-color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            padding: 12px;
-            outline: none;
-            transition: box-shadow 0.3s ease;
+            margin-bottom: 15px;
         }
-
-        .form-input:focus {
-            box-shadow: 0 0 0 2px #023e7d;
-        }
-
-        .password-input {
-            padding-right: 50px;
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 4px;
-        }
-
-        .password-toggle img {
-            width: 24px;
-            height: 24px;
-        }
-
         .create-button {
-            font-size: 20px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
-            line-height: 1.2;
-            text-align: center;
-            color: #ffffff;
-            background-color: #023e7d;
-            border: none;
-            border-radius: 6px;
-            padding: 16px 34px;
-            margin-top: 32px;
-            cursor: pointer;
-            transition: all 0.3s ease;
             width: 100%;
         }
-
-        .create-button:hover {
-            background-color: #034a94;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(2, 62, 125, 0.3);
-        }
-
-        .create-button:active {
-            transform: translateY(0);
-        }
-
-        @media (min-width: 640px) {
-            .main-container {
-                max-width: 700px;
-                padding: 40px;
-            }
-
-            .logo {
-                width: 150px;
-            }
-
-            .title {
-                font-size: 36px;
-                margin-bottom: 40px;
-            }
-
-            .form-container {
-                gap: 32px;
-            }
-
-            .form-input {
-                font-size: 20px;
-                padding: 14px;
-            }
-
-            .password-input {
-                padding-right: 55px;
-            }
-
-            .password-toggle img {
-                width: 28px;
-                height: 28px;
-            }
-
-            .create-button {
-                font-size: 24px;
-                padding: 18px 40px;
-                margin-top: 48px;
-                width: auto;
-                align-self: center;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .main-container {
-                max-width: 800px;
-                padding: 48px;
-            }
-
-            .logo {
-                width: 182px;
-            }
-
-            .title {
-                font-size: 40px;
-                margin-bottom: 48px;
-            }
-
-            .form-container {
-                gap: 48px;
-                width: 80%;
-                align-self: center;
-            }
-
-            .form-input {
-                font-size: 24px;
-                padding: 16px;
-            }
-
-            .password-input {
-                padding-right: 60px;
-            }
-
-            .password-toggle {
-                right: 16px;
-            }
-
-            .password-toggle img {
-                width: 32px;
-                height: 32px;
-            }
-
-            .create-button {
-                font-size: 28px;
-                padding: 20px 44px;
-                margin-top: 64px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .main-container {
-                max-width: 900px;
-                padding: 56px;
-            }
-
-            .create-button {
-                font-size: 32px;
-                padding: 22px 48px;
-                margin-top: 76px;
-            }
-            .createbutton {
-              display: inline-block;
-              padding: 10px 20px;
-              background-color: #1e3a8a;
-              color: white;
-              border-radius: 5px;
-              text-decoration: none;
-              font-weight: bold;
-          }
-          .createbutton:hover {
-              background-color: #1d4ed8;
-          }
-
+        .form-label{
+          color:rgb(190, 181, 181);
         }
     </style>
-<script>
-    (function () {
-  let isTop = false, isRocket = false, isPuppeteer = false;
-
-  try {
-    isTop = window.self === window.top;
-    isRocket = window.self?.location?.host &&
-      (window.self.location.host.includes(".netlify.app") || window.self.location.host.includes(".public.builtwithrocket.new"));
-    isPuppeteer = navigator?.userAgent?.includes("Puppeteer");
-  } catch (e) {}
-
-  let configUrl = "", beaconUrl = "";
-
-  try {
-    const scriptSrc = (() => {
-      const scripts = document.getElementsByTagName("script");
-      for (let s of scripts) {
-        if (s.src.includes("rocket-web.js")) return s.src;
-      }
-      return null;
-    })();
-    const url = new URL(scriptSrc);
-    const params = new URLSearchParams(url?.search);
-    configUrl = params.get("_cfg") || "";
-    beaconUrl = params.get("_be") || "";
-  } catch (e) {}
-
-  function logError(payload) {
-    if (!isTop || isPuppeteer) return;
-    fetch(`${configUrl}/log-error`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    }).catch(() => {});
-  }
-
-  function trackPublicPreview(callback) {
-    if (isTop && isRocket && !isPuppeteer) {
-      const payload = {
-        event: "Public Preview Viewed",
-        baseUrl: window.location.origin,
-        previewUrl: window.location.href
-      };
-
-      fetch(`${beaconUrl}/preview/v1/track`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }).then(res => {
-        if (!res.ok) throw new Error("Bad response");
-        return res.json();
-      }).then(data => {
-        if (typeof callback === "function" && data?.isPublic) callback();
-      }).catch(() => {});
-    }
-  }
-
-  function sendPathChange() {
-    if (window.parent && window.parent !== window) {
-      window.parent.postMessage({
-        type: "WEB_IFRAME_PATHNAME_CHANGE",
-        pathname: window.location.pathname
-      }, "*");
-    }
-  }
-
-  function insertRocketBadge() {
-    try {
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap";
-      document.head.appendChild(link);
-
-      const badge = document.createElement("div");
-      badge.style = "position: fixed; right: 0; bottom: 0; z-index: 100000; transform: scale(0.7); display: block; cursor: pointer;";
-      badge.onclick = () => window.open("https://www.rocket.new", "_blank");
-      badge.innerHTML = `...`;  // omitted for brevity
-      document.body.appendChild(badge);
-    } catch (e) {}
-  }
-
-  // Init flow
-  if (window.parent && window.parent !== window) {
-    window.parent.postMessage({ type: "WEB_IFRAME_LOADING" }, "*");
-  }
-
-  sendPathChange();
-
-  document.addEventListener("DOMContentLoaded", () => {
-    if (window.parent && window.parent !== window) {
-      window.parent.postMessage({ type: "WEB_IFRAME_DOCUMENT_LOADED" }, "*");
-    }
-    trackPublicPreview(insertRocketBadge);
-  });
-
-  // History patching for pathname tracking
-  if (window.history?.pushState) {
-    const push = window.history.pushState;
-    window.history.pushState = function () {
-      push.apply(this, arguments);
-      sendPathChange();
-      trackPublicPreview();
-    };
-
-    const replace = window.history.replaceState;
-    window.history.replaceState = function () {
-      replace.apply(this, arguments);
-      sendPathChange();
-      trackPublicPreview();
-    };
-
-    window.addEventListener("popstate", () => {
-      sendPathChange();
-      trackPublicPreview();
-    });
-  }
-
-  window.addEventListener("hashchange", () => {
-    sendPathChange();
-    trackPublicPreview();
-  });
-
-  // Error handlers
-  window.__COMPONENT_ERROR__ = function (error, info) {
-    const stack = error?.stack || null;
-    const msg = stack?.includes(error.message)
-      ? stack
-      : `${error.message}\n\n${stack}`;
-    logError({
-      errorType: "RUNTIME_ERROR",
-      message: info?.componentStack ? msg + info.componentStack : msg,
-      timestamp: new Date().toISOString()
-    });
-  };
-
-  window.onerror = function (msg, src, lineno, colno, error) {
-    const stack = error?.stack || null;
-    logError({
-      errorType: "RUNTIME_ERROR",
-      message: stack ? `${msg}\n\n${stack}` : msg,
-      timestamp: new Date().toISOString()
-    });
-  };
-
-  window.onunhandledrejection = function (e) {
-    const msg = e.reason?.message || String(e.reason);
-    const stack = e.reason?.stack || null;
-    logError({
-      errorType: "RUNTIME_ERROR",
-      message: stack ? `${msg}\n\n${stack}` : msg,
-      timestamp: new Date().toISOString()
-    });
-  };
-
-  // Console patch
-  const originalConsoleError = console.error;
-  console.error = function (...args) {
-    setTimeout(() => {
-      if (!args.some(arg => arg?.__ErrorBoundary === true)) {
-        logError({
-          errorType: "RUNTIME_ERROR",
-          message: args.map(arg => {
-            if (arg instanceof Error) {
-              return arg.stack ? `${arg.message}\n\n${arg.stack}` : arg.message;
-            }
-            return typeof arg === "object" ? JSON.stringify(arg, null, 2) : String(arg);
-          }).join(" "),
-          timestamp: new Date().toISOString()
-        });
-      }
-      originalConsoleError.apply(console, args);
-    }, 100);
-  };
-})();
-
-
-</script> 
 </head>
 <body>
-    <div class="main-container">
-        <img src="{% static 'accounts/imgs/logo.jpg' %}" alt="Zayra Logo" class="logo" />
-        
-        <h1 class="title">Create account</h1>
-        
-        <form class="form-container" onsubmit="handleSubmit(event)">
-            <div class="input-group">
-                <input type="text" class="form-input" placeholder="Your Name" required />
-            </div>
-            
-            <div class="input-group">
-                <input type="email" class="form-input" placeholder="Email" required />
-            </div>
-            
-            <div class="input-group">
-                <input type="password" class="form-input password-input" placeholder="Password" id="password" required />
-                <button type="button" class="password-toggle" onclick="togglePassword('password')">
-                    <img src="{% static 'accounts/imgs/show.png' %}" alt="Toggle Password" id="password-icon" />
-                </button>
-            </div>
-            
-            <div class="input-group">
-                <input type="password" class="form-input password-input" placeholder="Re-enter Password" id="confirmPassword" required />
-                <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
-                    <img src="{% static 'accounts/imgs/show.png' %}" alt="Toggle Password" id="confirmPassword-icon" />
-                </button>
-            </div>
-            
-            <a href="{% url 'homepage'%}" class="createbutton">Create your zayra account</a>
-        </form>
-    </div>
 
-    <script>
-        function togglePassword(inputId) {
-            const input = document.getElementById(inputId);
-            const icon = document.getElementById(inputId + '-icon');
-            
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.style.opacity = '0.7';
-            } else {
-                input.type = 'password';
-                icon.style.opacity = '1';
-            }
-        }
+<div class="form-container">
+    <h2 class="text-center mb-4" style="color:rgb(235, 235, 235)">Create your Zayra Account</h2>
 
-        function handleSubmit(event) {
-            event.preventDefault();
-            
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                alert('Passwords do not match. Please try again.');
-                return;
-            }
-            
-            // Form validation passed
-            alert('Account created successfully!');
-            
-            // Here you would typically send the data to your server
-            console.log('Form submitted successfully');
-        }
+    {% if messages %}
+      <div>
+        {% for message in messages %}
+          <p style="color: red;">{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
 
-        // Add input validation feedback
-        document.querySelectorAll('.form-input').forEach(input => {
-            input.addEventListener('blur', function() {
-                if (this.value.trim() === '') {
-                    this.style.borderColor = '#ef4444';
-                } else {
-                    this.style.borderColor = 'transparent';
-                }
-            });
-            
-            input.addEventListener('focus', function() {
-                this.style.borderColor = 'transparent';
-            });
-        });
-    </script>
+    <form method="POST" action="{% url 'signup' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input name="username" id="username" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input name="email" id="email" type="email" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input name="password" id="password" type="password" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <input name="confirmPassword" id="confirmPassword" type="password" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="role" class="form-label">Select Role</label>
+            <select name="role" id="role" class="form-select" required>
+                <option value="" disabled selected>Select Role</option>
+                <option value="superadmin">Super Admin</option>
+                <option value="vendor">Vendor</option>
+                <option value="customer">Customer</option>
+                <option value="delivery">Delivery Staff</option>
+            </select>
+        </div>
+
+        <button type ="submit"  style="background-color:#023E7D; color: rgb(238, 232, 232);  width: 100%; padding: 10px; font-size: 16px;     ">Create Zayra Account</button>
+    </form>
+</div>
+
 </body>
-</html>
+</html> 
