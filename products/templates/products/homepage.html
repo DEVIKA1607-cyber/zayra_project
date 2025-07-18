@@ -107,7 +107,6 @@
       border-radius: 4px;
     }
 
-    /* UPDATED SIDE MENU → Bottom nav bar */
     .side-menu {
       position: fixed;
       bottom: 0;
@@ -181,94 +180,40 @@
   <div class="products">
     <h2>Best Deals on these products</h2>
     <div class="product-grid">
-      <div class="product">
-        <img src="{% static 'products/imgs/bottom.jpg' %}" alt="">
-        Bottomwear
-      </div>
-      <div class="product">
-        <img src="{% static 'products/imgs/casuals.jpg' %}" alt="">
-        Casuals
-      </div>
-      <div class="product">
-        <img src="{% static 'products/imgs/western.jpg' %}" alt="">
-        Western
-      </div>
-      <div class="product">
-        <img src="{% static 'products/imgs/anarkali.jpg' %}" alt="">
-        Anarkali
-      </div>
-      <div class="product">
-        <img src="{% static 'products/imgs/earphones.jpg' %}" alt="">
-        Earphones
-      </div>
-      <div class="product">
-        <img src="{% static 'products/imgs/noise.jpg' %}" alt="">
-        Noise
-      </div>
-      <div class="product">
-        <img src="{% static 'products/imgs/smartwatch.jpg' %}" alt="">
-        Noise Smartwatch
-      </div>
-      <div class="product">
-        <img src="{% static 'products/imgs/iwatch.jpg' %}" alt="">
-        Iwatch
-      </div>
-      <div class="product">
-        <img src="{% static 'products/imgs/formals.jpg' %}" alt="">
-        Formals
-      </div>
-      <div class="product">
-        <img src="{% static 'products/imgs/tshirts.jpg' %}" alt="">
-        T-shirts
-      </div>
-      <div class="product">
-        <img src="{% static 'products/imgs/kids.jpg' %}" alt="">
-        Kids
-      </div>
-      <div class="product">
-        <img src="{% static 'products/imgs/maxi.jpg' %}" alt="">
-        Maxi
-      </div>
-      <div class="product">
-        <img src="{% static 'products/imgs/boat.jpg' %}" alt="">
-        Boat
-      </div>
-      <div class="product">
-        <img src="{% static 'products/imgs/watch.jpg' %}" alt="">
-        Fastrack
-      </div>
+      <div class="product"><img src="{% static 'products/imgs/bottom.jpg' %}" alt="">Bottomwear</div>
+      <div class="product"><img src="{% static 'products/imgs/casuals.jpg' %}" alt="">Casuals</div>
+      <div class="product"><img src="{% static 'products/imgs/western.jpg' %}" alt="">Western</div>
+      <div class="product"><img src="{% static 'products/imgs/anarkali.jpg' %}" alt="">Anarkali</div>
+      <div class="product"><img src="{% static 'products/imgs/earphones.jpg' %}" alt="">Earphones</div>
+      <div class="product"><img src="{% static 'products/imgs/noise.jpg' %}" alt="">Noise</div>
+      <div class="product"><img src="{% static 'products/imgs/smartwatch.jpg' %}" alt="">Noise Smartwatch</div>
+      <div class="product"><img src="{% static 'products/imgs/iwatch.jpg' %}" alt="">Iwatch</div>
+      <div class="product"><img src="{% static 'products/imgs/formals.jpg' %}" alt="">Formals</div>
+      <div class="product"><img src="{% static 'products/imgs/tshirts.jpg' %}" alt="">T-shirts</div>
+      <div class="product"><img src="{% static 'products/imgs/kids.jpg' %}" alt="">Kids</div>
+      <div class="product"><img src="{% static 'products/imgs/maxi.jpg' %}" alt="">Maxi</div>
+      <div class="product"><img src="{% static 'products/imgs/boat.jpg' %}" alt="">Boat</div>
+      <div class="product"><img src="{% static 'products/imgs/watch.jpg' %}" alt="">Fastrack</div>
     </div>
   </div>
 
   <div class="side-menu">
-    <div onclick="menuClick('Home')">
-      <span>&#8962;</span>
-      Home
+    <div onclick="location.href='{% url 'homepage' %}'">
+      <span>&#8962;</span> Home
     </div>
-    <div onclick="menuClick('Wishlist')">
-      <span>&#10084;</span>
-      Wishlist
+    <div onclick="location.href='{% url 'wishlist' %}'">
+      <span>&#10084;</span> Wishlist
     </div>
-    <div onclick="menuClick('Categories')">
-      <span>&#9776;</span>
-      Categories
+    <div>
+      <span>&#9776;</span> Categories
     </div>
-    <div onclick="menuClick('Account')">
-      <span>&#128100;</span>
-      Account
+    <div>
+      <span>&#128100;</span> Account
     </div>
-    <div onclick="menuClick('Cart')">
-      <span>&#128722;</span>
-      Cart
+    <div onclick="location.href='{% url 'cart' %}'">
+      <span>&#128722;</span> Cart
     </div>
   </div>
-
-  <script>
-    function menuClick(name) {
-      alert(name + ' clicked!');
-      // window.location.href = /${name.toLowerCase()}.html;
-    }
-  </script>
 
 </body>
 </html>

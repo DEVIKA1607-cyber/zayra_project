@@ -50,36 +50,6 @@
       font-size: 18px;
       font-weight: bold;
     }
-    .original-price {
-      color: #ccc;
-      text-decoration: line-through;
-      font-size: 14px;
-    }
-    .discount {
-      color: #ffffff;
-      font-size: 14px;
-    }
-    .quantity-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .quantity-box button {
-      background-color: #22395e;
-      color: white;
-      border: none;
-      width: 30px;
-      height: 30px;
-      border-radius: 5px;
-    }
-    .quantity-box input {
-      width: 40px;
-      text-align: center;
-      border: none;
-      border-radius: 5px;
-      background-color: #1a2f57;
-      color: white;
-    }
     .remove-btn {
       background: none;
       border: none;
@@ -139,56 +109,25 @@
   <div class="cart-container">
     <div class="cart-header">Your Shopping Cart</div>
 
-    <div class="cart-item" data-price="28000">
-      <img src="{% static 'cart/imgs/img3.jpg' %}" alt="Sofa">
-      <div class="item-info">
-        <strong>Traditional Sofa</strong><br>
-        Product Id : 23476<br>
-        <span class="price">₹28,000</span>
-        <span class="discount">33% off</span>
-        <span class="original-price">₹35,000</span>
+    {% if request.session.cart %}
+      {% for item in request.session.cart %}
+      <div class="cart-item" data-price="{{ item.price }}">
+        <img src="{% static item.image %}" alt="{{ item.name }}">
+        <div class="item-info">
+          <strong>{{ item.name }}</strong><br>
+          <span class="price">₹{{ item.price }}</span>
+        </div>
+        <div class="quantity-box">
+          <button class="decrease">−</button>
+          <input type="text" class="qty" value="1">
+          <button class="increase">+</button>
+        </div>
+        <button class="remove-btn" onclick="this.closest('.cart-item').remove(); updateTotals();">&times;</button>
       </div>
-      <div class="quantity-box">
-        <button class="decrease">−</button>
-        <input type="text" class="qty" value="1">
-        <button class="increase">+</button>
-      </div>
-      <button class="remove-btn">&times;</button>
-    </div>
-
-    <div class="cart-item" data-price="729">
-      <img src="{% static 'cart/imgs/img1.jpg' %}" alt="Dress">
-      <div class="item-info">
-        <strong>Libas Women's Dress</strong><br>
-        Product Id : 54609<br>
-        <span class="price">₹729</span>
-        <span class="discount">67% off</span>
-        <span class="original-price">₹2,199</span>
-      </div>
-      <div class="quantity-box">
-        <button class="decrease">−</button>
-        <input type="text" class="qty" value="2">
-        <button class="increase">+</button>
-      </div>
-      <button class="remove-btn">&times;</button>
-    </div>
-
-    <div class="cart-item" data-price="114">
-      <img src="{% static 'cart/imgs/img2.jpg' %}" alt="Nail Polish">
-      <div class="item-info">
-        <strong>Premium Matte Nail Polish</strong><br>
-        Product Id : 98721<br>
-        <span class="price">₹114</span>
-        <span class="discount">12% off</span>
-        <span class="original-price">₹129</span>
-      </div>
-      <div class="quantity-box">
-        <button class="decrease">−</button>
-        <input type="text" class="qty" value="5">
-        <button class="increase">+</button>
-      </div>
-      <button class="remove-btn">&times;</button>
-    </div>
+      {% endfor %}
+    {% else %}
+      <p class="text-center">Your cart is empty.</p>
+    {% endif %}
 
     <div class="summary">
       <div>Total: <span class="label" id="total">₹0.00</span></div>
@@ -196,7 +135,9 @@
       <div>Grand Total: <span class="label" id="grand-total">₹0.00</span></div>
     </div>
 
-    <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+    {% if request.session.cart %}
+      <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+    {% endif %}
   </div>
 
   <script>
@@ -233,19 +174,7 @@
       });
     });
 
-    document.querySelectorAll(".remove-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        btn.closest(".cart-item").remove();
-        updateTotals();
-      });
-    });
-
-    document.getElementById("checkoutBtn").addEventListener("click", () => {
-      // Redirect to a checkout page (replace with real URL if needed)
-      window.location.href = "checkout.html";
-    });
-
-    updateTotals(); // initial calculation
+    updateTotals();
   </script>
 </body>
 </html>
