@@ -2,66 +2,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Confirmation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #001233;
-            color: white;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            padding: 50px;
-        }
-        .logo {
-            width: 200px;
-            margin-bottom: 40px;
-        }
-        h1 {
-            font-size: 40px;
-            margin-bottom: 25px;
-        }
-        .order-id {
-            font-size: 20px;
-            margin: 15px 0;
-        }
-        .estimated-delivery {
-            font-size: 18px;
-            margin: 15px 0;
-        }
-        .order-message {
-            font-size: 24px;
-            margin: 40px 0;
-        }
-        .button {
-            background-color: #33415c;
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            font-size: 18px;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 35px;
-        }
-        .button:hover {
-            background-color: #08417d;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Confirmation</title>
+  <style>
+    body {
+      background-color: #001f3f;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .confirmation-box {
+      background-color: #132b4d;
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .confirmation-box img {
+      width: 100px;
+      margin-bottom: 20px;
+    }
+
+    .order-id {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .btn-home {
+      margin-top: 20px;
+      background-color: #59c0f5;
+      color: black;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-home:hover {
+      background-color: #42a9dd;
+    }
+  </style>
 </head>
 <body>
-
-    <div class="container">
-        <img src="{% static 'payments/imgs/logo.jpg' %}" alt="ZAYRA Logo" class="logo"> <!-- Replace 'logo.png' with your logo image path -->
-        <h1>Order Confirmation</h1>
-        <p class="order-id">Order ID: #34567</p>
-        <p class="estimated-delivery">Estimated Delivery: July 20, 2025</p>
-        <p class="order-message">Your order has been placed!</p>
-        <a href="index.html" class="button">Return Home</a> <!-- Adjust the link to where the home page is -->
-    </div>
-
+  <div class="confirmation-box">
+    <img src="{% static 'payments/imgs/logo.jpg' %}" alt="Zayra Logo">
+    <div class="order-id">Order ID: #345867</div>
+    <div>Estimated Delivery: July 20, 2025</div>
+    <h4>Your order has been placed!</h4>
+    <form action="{% url 'homepage' %}" method="get">
+      <button class="btn-home" type="submit">Return Home</button>
+    </form>
+  </div>
 </body>
 </html>

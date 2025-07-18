@@ -6,5 +6,5 @@ def product_list(request):
 def product_detail(request, pk):
     return render(request, 'products/product.html')
 
-def product_categories(request):
+def homepage(request):
     return render(request, 'products/homepage.html')

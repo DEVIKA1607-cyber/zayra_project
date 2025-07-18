@@ -1,15 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-def payment_list(request):
+def payment_view(request):
+    return render(request, 'payments/payment.html')  
+
+def upi_view(request):
     if request.method == 'POST':
-        amount = request.POST.get('amount')
-        upi_id = request.POST.get('upi_id')
-        return render(request, 'payments/payment_success.html', {
-            'amount': amount,
-            'upi_id': upi_id
-        })
-    return render(request, 'payments/payment.html')
-def upi_payment(request):
-    return render(request, 'payments/upi.html')
-def success(request):
-    return render(request,'payments/success.html')
+        return render(request, 'payments/upi.html')
+    return redirect('payment')
+
+def order_success_view(request):
+    if request.method == 'POST':
+        return render(request, 'payments/success.html')
+    return redirect('upi_page')
