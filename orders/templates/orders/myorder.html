@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Orders</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #041533;
+      font-family: 'Playfair Display', serif;
+      padding: 20px;
+      color: white;
+      font-size: large;
+    }
+
+    .text-uppercase
+    {
+        font-size: larger;
+    }
+    .order-card {
+      background-color: #1c2a4a;
+      border-radius: 1rem;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: large;
+    }
+
+    .order-card:nth-child(even) {
+      background-color: #2a3a5a;
+      
+    }
+
+    .order-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      font-size: large;
+    }
+
+    .search-input {
+      position: relative;
+      max-width: 500px;
+      margin-bottom: 2rem;
+      font-size: larger;
+    }
+
+    .search-input input {
+      padding-left: 2.5rem;
+      font-size: larger;
+    }
+
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      color: black;
+    }
+
+    .rating i.far {
+      color: white;
+    }
+
+    .header-icons i {
+      color: white;
+      font-size: 1.5rem;
+      margin-left: 1rem;
+      font-size: large;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex align-items-center gap-3">
+      <i class="fas fa-arrow-left text-white fs-3"></i>
+        <h3>My Orders</h3>
+    </div>
+    <div class="header-icons">
+      <i class="far fa-user"></i>
+      <i class="fas fa-shopping-cart"></i>
+    </div>
+  </header>
+
+  <div class="search-input mx-auto">
+    <input type="text" class="form-control rounded-pill" placeholder="Search your order here" />
+    <i class="fas fa-search search-icon"></i>
+  </div>
+
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+
+      <div class="col">
+        <div class="order-card">
+          <img src="https://storage.googleapis.com/a1aa/image/5eff5588-759f-4327-abe5-8826e1ef0f33.jpg" alt="Traditional sofa" />
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between align-items-center">
+              <span>Delivered on Jul 15</span>
+              <i class="fas fa-chevron-right"></i>
+            </div>
+            <p class="text-uppercase fw-bold mb-1">Traditional Sofa</p>
+            <div class="rating text-warning">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="order-card">
+          <img src="https://storage.googleapis.com/a1aa/image/89a9b72c-c0a1-4a44-7c16-ea66b6d61c58.jpg" alt="Libas Dress" />
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between align-items-center">
+              <span>Delivered on Jul 16</span>
+              <i class="fas fa-chevron-right"></i>
+            </div>
+            <p class="text-uppercase fw-bold mb-1">Libas Women's Dress</p>
+            <div class="rating text-warning">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="order-card">
+          <img src="https://storage.googleapis.com/a1aa/image/1c39eae9-6aa4-4e85-c2e9-28a97e124654.jpg" alt="Nail Polish" />
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between align-items-center">
+              <span>Delivered on Jul 7</span>
+              <i class="fas fa-chevron-right"></i>
+            </div>
+            <p class="text-uppercase fw-bold mb-1">Premium Nail Polish</p>
+            <div class="rating text-warning">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="order-card">
+          <img src="https://storage.googleapis.com/a1aa/image/adc54242-6c50-49b1-c688-6a440e38340b.jpg" alt="Trolley" />
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between align-items-center">
+              <span>Delivered on Jul 7</span>
+              <i class="fas fa-chevron-right"></i>
+            </div>
+            <p class="text-uppercase fw-bold mb-1">Trolley</p>
+            <div class="rating text-warning">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>
