@@ -11,3 +11,5 @@ def payment_list(request):
     return render(request, 'payments/payment.html')
 def upi_payment(request):
     return render(request, 'payments/upi.html')
+def success(request):
+    return render(request,'payments/success.html')
