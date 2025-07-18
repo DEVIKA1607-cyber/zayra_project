@@ -1,0 +1,274 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zayra.in</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+    }
+
+    header {
+      background: #09214a;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 10px 10px;
+    }
+
+    .logo {
+      font-weight: bold;
+      margin-right: 20px;
+    }
+
+    .search-bar {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+    }
+
+    .login-btn {
+      margin-left: 10px;
+      background: #4c5b7f;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .icons {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-left: 20px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .categories {
+      background: #09214a;
+      display: flex;
+      overflow-x: auto;
+      padding: 10px 20px;
+      gap: 20px;
+      color: #fff;
+    }
+
+    .categories div {
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .banner {
+      background: #fce5cd;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .products {
+      background: #09214a;
+      color: #fff;
+      padding: 20px;
+    }
+
+    .products h2 {
+      margin: 0 0 20px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 15px;
+    }
+
+    .product {
+      background: #fff;
+      color: #000;
+      padding: 15px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 4px;
+    }
+
+    /* UPDATED SIDE MENU → Bottom nav bar */
+    .side-menu {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: #3b4b65;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-radius: 10px 10px 0 0;
+      overflow: hidden;
+    }
+
+    .side-menu div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-right: 1px solid #2c3e50;
+    }
+
+    .side-menu div:last-child {
+      border-right: none;
+    }
+
+    .side-menu div:hover {
+      background: #4c5b7f;
+    }
+
+    .side-menu div span {
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">ZAYRA</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search Zayra.in">
+    </div>
+    <button class="login-btn">Login</button>
+    <div class="icons">
+      <span>&#128100;</span> <!-- user -->
+      <span>&#9776;</span> <!-- menu -->
+    </div>
+  </header>
+
+  <div class="categories">
+    <div>All</div>
+    <div>Fashion</div>
+    <div>Mobiles & Tablets</div>
+    <div>Appliances</div>
+    <div>Grocery</div>
+    <div>Kitchen Items</div>
+    <div>Beauty</div>
+    <div>Toys</div>
+    <div>Books & More</div>
+  </div>
+
+  <div class="banner">
+    <h2>Under ₹1,499</h2>
+    <p>Budget friendly headphones</p>
+    <p>BOAT | BOULT</p>
+    <img src="{% static 'products/imgs/banner.jpg' %}" alt="">
+  </div>
+
+  <div class="products">
+    <h2>Best Deals on these products</h2>
+    <div class="product-grid">
+      <div class="product">
+        <img src="{% static 'products/imgs/bottom.jpg' %}" alt="">
+        Bottomwear
+      </div>
+      <div class="product">
+        <img src="{% static 'products/imgs/casuals.jpg' %}" alt="">
+        Casuals
+      </div>
+      <div class="product">
+        <img src="{% static 'products/imgs/western.jpg' %}" alt="">
+        Western
+      </div>
+      <div class="product">
+        <img src="{% static 'products/imgs/anarkali.jpg' %}" alt="">
+        Anarkali
+      </div>
+      <div class="product">
+        <img src="{% static 'products/imgs/earphones.jpg' %}" alt="">
+        Earphones
+      </div>
+      <div class="product">
+        <img src="{% static 'products/imgs/noise.jpg' %}" alt="">
+        Noise
+      </div>
+      <div class="product">
+        <img src="{% static 'products/imgs/smartwatch.jpg' %}" alt="">
+        Noise Smartwatch
+      </div>
+      <div class="product">
+        <img src="{% static 'products/imgs/iwatch.jpg' %}" alt="">
+        Iwatch
+      </div>
+      <div class="product">
+        <img src="{% static 'products/imgs/formals.jpg' %}" alt="">
+        Formals
+      </div>
+      <div class="product">
+        <img src="{% static 'products/imgs/tshirts.jpg' %}" alt="">
+        T-shirts
+      </div>
+      <div class="product">
+        <img src="{% static 'products/imgs/kids.jpg' %}" alt="">
+        Kids
+      </div>
+      <div class="product">
+        <img src="{% static 'products/imgs/maxi.jpg' %}" alt="">
+        Maxi
+      </div>
+      <div class="product">
+        <img src="{% static 'products/imgs/boat.jpg' %}" alt="">
+        Boat
+      </div>
+      <div class="product">
+        <img src="{% static 'products/imgs/watch.jpg' %}" alt="">
+        Fastrack
+      </div>
+    </div>
+  </div>
+
+  <div class="side-menu">
+    <div onclick="menuClick('Home')">
+      <span>&#8962;</span>
+      Home
+    </div>
+    <div onclick="menuClick('Wishlist')">
+      <span>&#10084;</span>
+      Wishlist
+    </div>
+    <div onclick="menuClick('Categories')">
+      <span>&#9776;</span>
+      Categories
+    </div>
+    <div onclick="menuClick('Account')">
+      <span>&#128100;</span>
+      Account
+    </div>
+    <div onclick="menuClick('Cart')">
+      <span>&#128722;</span>
+      Cart
+    </div>
+  </div>
+
+  <script>
+    function menuClick(name) {
+      alert(name + ' clicked!');
+      // window.location.href = /${name.toLowerCase()}.html;
+    }
+  </script>
+
+</body>
+</html>
