@@ -112,7 +112,7 @@
     {% if request.session.cart %}
       {% for item in request.session.cart %}
       <div class="cart-item" data-price="{{ item.price }}">
-        <img src="{% static item.image %}" alt="{{ item.name }}">
+        <img src="{% if item.image|slice:":4" == 'http' %}{{ item.image }}{% else %}{% static item.image %}{% endif %}" alt="{{ item.name }}">
         <div class="item-info">
           <strong>{{ item.name }}</strong><br>
           <span class="price">₹{{ item.price }}</span>
@@ -136,7 +136,7 @@
     </div>
 
     {% if request.session.cart %}
-      <div class="checkout-btn" id="checkoutBtn"><a href="{% url 'payment'%}">Proceed to Checkout</a></div>
+      <div class="checkout-btn" id="checkoutBtn"><a href="{% url 'payment' %}">Proceed to Checkout</a></div>
     {% endif %}
   </div>
 

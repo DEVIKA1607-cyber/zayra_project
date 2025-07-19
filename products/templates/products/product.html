@@ -8,6 +8,18 @@
   <title>Zayra Furniture Store</title>
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- CSRF Token Helper -->
+  <script>
+    function getCSRFToken() {
+      let cookies = document.cookie.split(';');
+      for (let cookie of cookies) {
+        let [name, value] = cookie.trim().split('=');
+        if (name === 'csrftoken') return value;
+      }
+      return '';
+    }
+  </script>
+
   <style>
     body {
       background-color: #0f2549; /* dark navy background */
@@ -390,13 +402,11 @@
       </div>
     </aside>
 
-    <main class="products" aria-live="polite" aria-label="Product listing grid">
-      <!-- Product cards inserted dynamically by JS -->
-    </main>
-  </div>
+  <main class="products" aria-live="polite" aria-label="Product listing grid">
+    <!-- Product cards inserted dynamically by JS -->
+  </main>
 
 <script>
-  // Sample product data matching the image style and values
   const products = [
     {
       id: 1,
@@ -472,39 +482,32 @@
     }
   ];
 
-  // References
   const categoryTabs = document.querySelectorAll(".category-tab");
   const productsContainer = document.querySelector("main.products");
 
-  // Function to create star rating SVG icons for rating display
   function createStars(rating) {
     let starsHTML = '';
     const maxStars = 5;
-    for(let i=1; i<=maxStars; i++) {
-      if(i <= rating) {
+    for (let i = 1; i <= maxStars; i++) {
+      if (i <= rating) {
         starsHTML += `
-          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="star-filled" style="width:16px; height:16px; color:#fbbf24;">
+          <svg aria-hidden="true" viewBox="0 0 24 24" class="star-filled" style="width:16px;height:16px;color:#fbbf24;">
             <path d="M12 .587l3.668 7.568L24 9.423l-6 5.854 1.42 8.28L12 18.897l-7.42 4.66L6 15.277 0 9.423l8.332-1.268z"/>
-          </svg>
-        `;
+          </svg>`;
       } else {
         starsHTML += `
-          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" class="star-empty" style="width:16px; height:16px; color:#dfdede44;">
+          <svg aria-hidden="true" viewBox="0 0 24 24" class="star-empty" style="width:16px;height:16px;color:#dfdede44;">
             <path d="M12 17.27L18.18 21 16.54 13.97 22 9.24 14.81 8.63 12 2 9.19 8.63 2 9.24 7.46 13.97 5.82 21z" stroke="#fbbf24" stroke-width="1" fill="none"/>
-          </svg>
-        `;
+          </svg>`;
       }
     }
     return starsHTML;
   }
 
-  // Render products according to selected category (default "chair" for demo)
   function renderProducts(category = "sofa") {
-    // Clear existing
     productsContainer.innerHTML = "";
-    // Filter and get only products of that category OR include all for some generic categories like "TV Unit"
     const filteredProducts = products.filter(p => {
-      if(category === 'tv-unit') return p.title.toLowerCase().includes('tv');
+      if (category === 'tv-unit') return p.title.toLowerCase().includes('tv');
       return p.category === category;
     });
 
@@ -520,31 +523,57 @@
         <div class="product-info">
           <div>
             <h2 class="product-title">${p.title}</h2>
-            <div class="rating" aria-label="${p.rating} star rating">${createStars(p.rating)}</div>
-            <div class="price" aria-label="Price in Indian Rupees"><span class="currency">₹</span>${p.price}</div>
+            <div class="rating">${createStars(p.rating)}</div>
+            <div class="price"><span class="currency">₹</span>${p.price}</div>
           </div>
           <button class="add-to-cart-btn" aria-label="Add ${p.title} to cart" type="button">Add to Cart</button>
         </div>
       `;
       productsContainer.appendChild(productCard);
+
+      // Add-to-cart functionality
+      const addToCartBtn = productCard.querySelector(".add-to-cart-btn");
+      addToCartBtn.addEventListener("click", () => {
+        const payload = new FormData();
+        payload.append("product_name", p.title);
+        payload.append("product_price", p.price.replace(/,/g, ""));
+        payload.append("product_img", p.image);
+
+        fetch("/cart/add/", {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": getCSRFToken()
+          },
+          body: payload
+        })
+        .then(response => {
+          if (response.redirected) {
+            window.location.href = response.url;
+          } else {
+            alert("Item added to cart!");
+          }
+        })
+        .catch(err => {
+          console.error("Add to cart failed", err);
+          alert("Error adding item to cart");
+        });
+      });
     });
   }
 
-  // Initial render for 'sofa' category to match image shown
-  renderProducts('sofa');
+  renderProducts("sofa");
 
-  // Tab click handler for category tabs
   categoryTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      if(tab.classList.contains('active')) return;
+    tab.addEventListener("click", () => {
+      if (tab.classList.contains("active")) return;
       categoryTabs.forEach(t => {
-        t.classList.remove('active');
-        t.setAttribute('aria-selected', 'false');
-        t.setAttribute('tabindex', '-1');
+        t.classList.remove("active");
+        t.setAttribute("aria-selected", "false");
+        t.setAttribute("tabindex", "-1");
       });
-      tab.classList.add('active');
-      tab.setAttribute('aria-selected', 'true');
-      tab.setAttribute('tabindex', '0');
+      tab.classList.add("active");
+      tab.setAttribute("aria-selected", "true");
+      tab.setAttribute("tabindex", "0");
 
       renderProducts(tab.dataset.category);
     });
