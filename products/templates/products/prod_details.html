@@ -3,9 +3,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="csrf-token" content="{{ csrf_token }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{{ product.name }}</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     body {
       background-color: #071a3d;
@@ -95,6 +97,13 @@
     .add-cart-btn:hover {
       background-color: #3b5b91;
     }
+
+    .wishlist-icon.red {
+      color: red;
+    }
+    .wishlist-icon.gray {
+      color: gray;
+    }
   </style>
 </head>
 <body>
@@ -112,7 +121,17 @@
       <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img"/>
 
       <div>
-        <h2>{{ product.name }}</h2>
+        <h2>
+          {{ product.name }}
+          <i id="heart-icon-{{ product.id }}"
+          class="fa fa-heart wishlist-icon {% if product.id in wishlist_products %}red{% else %}gray{% endif %}"
+          data-product-id="{{ product.id }}"
+          onclick="addToWishlist(this)"
+          title="Add to Wishlist"
+          style="cursor: pointer; font-size: 24px;"></i>
+
+        </h2>
+
         <p>Product Id: {{ product.id }}</p>
 
         <div class="mb-2">
@@ -141,10 +160,50 @@
           <small>(Based on 1,234 reviews)</small>
         </div>
 
-        <button class="add-cart-btn">Add to cart</button>
+        <a href="{% url 'cart:add_to_cart' product.id %}" class="btn btn-primary">Add to Cart</a>
       </div>
     </div>
   </div>
+
+  <script>
+  function getCSRFToken() {
+    return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  }
+
+  function addToWishlist(iconElement) {
+    const productId = iconElement.getAttribute("data-product-id");
+
+    fetch(`/cart/add-to-wishlist/${productId}/`, {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": getCSRFToken(),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({})
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log("Wishlist response:", data);
+      if (data.status === 'added') {
+        iconElement.classList.add('red');
+        iconElement.classList.remove('gray');
+      } else if (data.status === 'removed') {
+        iconElement.classList.remove('red');
+        iconElement.classList.add('gray');
+      } else {
+        alert("Unexpected response from server.");
+      }
+    })
+    .catch(error => {
+      console.error("AJAX error:", error);
+    });
+  }
+</script>
 
 </body>
 </html>

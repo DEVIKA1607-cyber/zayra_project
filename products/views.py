@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Product, Category
+from cart.models import WishlistItem
 
 def homepage(request):
     categories = Category.objects.all()
@@ -20,4 +21,9 @@ def products_by_category(request, category_id):
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
-    return render(request, 'products/prod_details.html', {'product': product})
+    wishlist_products = WishlistItem.objects.filter(user=request.user).values_list('product_id', flat=True) if request.user.is_authenticated else []
+    return render(request, 'products/prod_details.html', {
+        'product': product,
+        'wishlist_products': wishlist_products,
+    })
+
