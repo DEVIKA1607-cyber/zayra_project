@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zayra Categories</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #0f2549;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    .category-card {
+      background-color: #122f53;
+      border-radius: 1rem;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease-in-out;
+      align-items: center;
+    }
+    .category-card:hover {
+      transform: scale(1.05);
+    }
+    .category-card img {
+        align-content: center;
+      width: 80px;
+      height: 100px;
+      object-fit:fill;
+      border-radius: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="bg-[#0c1d3c] p-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="https://i.imgur.com/LxX2bWv.png" alt="Zayra Logo" class="h-10 w-auto" />
+      <input type="text" placeholder="Search Zayra.in" class="px-4 py-2 w-96 rounded-lg text-black"/>
+    </div>
+    <button class="bg-[#243b6d] text-white px-4 py-2 rounded-lg">Login</button>
+  </header>
+
+  <!-- Page Heading -->
+  <div class="text-center mt-10 mb-6">
+    <h1 class="text-3xl font-bold">Shop by Categories</h1>
+    <p class="text-gray-300">Find everything you need, sorted just for you.</p>
+  </div>
+
+  <!-- Categories Grid -->
+  <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10">
+    {% for category in categories %}
+      <a href="{% url 'products:products_by_category' category.id %}" style="text-decoration: none; color: inherit;">
+        <div class="category-card">
+          {% if category.image %}
+            <img src="{{ category.image.url }}" alt="{{ category.name }}">
+          {% else %}
+            <img src="{% static 'images/default-category.jpg' %}" alt="{{ category.name }}">
+          {% endif %}
+          <span class="block text-lg font-semibold mt-2">{{ category.name }}</span>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+
+
+
+</body>
+</html>

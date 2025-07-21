@@ -31,20 +31,23 @@
     }
 
     .search-bar input {
-      width: 100%;
+      width: 95%;
+      height: 35px;
       padding: 8px 12px;
       border-radius: 20px;
       border: none;
       font-size: 14px;
     }
 
-    .navbar button {
-      padding: 8px 16px;
+    .navbar-button {
+      margin-right: 40px;
+      padding: 8px 16px ;
       background-color: #103d84;
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      text-decoration: none;
     }
 
     .icon {
@@ -158,7 +161,7 @@
     <div class="search-bar">
       <input type="text" placeholder="Search Zayra.in">
     </div>
-    <button>Login</button>
+    <div class="navbar-button"><a href="{% url 'login' %} " style="text-decoration: none; color:white;" >Login</a></div>
     <span class="icon">☰</span>
   </div>
 
@@ -199,11 +202,11 @@
 
   <!-- Fixed Sidebar -->
   <div class="sidebar">
-    <div><img src="{% static 'products/imgs/home.png' %}">Home</div>
-    <div><img src="{% static 'products/imgs/heart.png' %}">Wishlist</div>
-    <div><img src="{% static 'products/imgs/widget.png' %}">Categories</div>
-    <div><img src="{% static 'products/imgs/shopping-cart.png' %}">Cart</div>
-    <div><img src="{% static 'products/imgs/profile.png' %}">Account</div>
+    <div><img src="{% static 'products/imgs/home.png' %}" style=" color: white;">Home</div>
+    <div><a href="{% url 'cart:wishlist_view' %}" style="text-decoration: none; color: white;"><img src="{% static 'products/imgs/heart.png' %}">Wishlist</div></a>
+    <div><a href="{% url 'products:categories' %}" style="text-decoration: none; color: white;"><img src="{% static 'products/imgs/widget.png' %}">Categories</div></a>
+    <div><a href="{% url 'cart:cart_view'%}" style="text-decoration: none; color: white;"><img src="{% static 'products/imgs/shopping-cart.png' %}">Cart</div></a>
+    <div><a href="{% url 'profile_detail'%}" style="text-decoration: none; color: white;"><img src="{% static 'products/imgs/profile.png' %}">Account</div></a>
   </div>
 
 </body>

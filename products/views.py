@@ -27,3 +27,6 @@ def product_detail(request, pk):
         'wishlist_products': wishlist_products,
     })
 
+def category_view(request):
+    categories = Category.objects.all()
+    return render(request, 'products/categories.html', {'categories': categories})
