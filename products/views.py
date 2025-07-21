@@ -9,14 +9,13 @@ def homepage(request):
         'products': products
     })
 
-def product_list(request):
-    category_id = request.GET.get('category')
-    if category_id:
-        products = Product.objects.filter(category_id=category_id)
-    else:
-        products = Product.objects.all()
-    categories = Category.objects.all()
-    return render(request, 'products/product.html', {'products': products, 'categories': categories})
+def products_by_category(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    products = Product.objects.filter(category=category)
+    return render(request, 'products/product.html', {
+        'selected_category': category,
+        'products': products
+    })
 
 
 def product_detail(request, pk):
