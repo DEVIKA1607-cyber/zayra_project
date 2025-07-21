@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import UserProfile
+from .models import Profile
 
-@admin.register(UserProfile)
-class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'full_name', 'phone', 'phone_verified']
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ['user', 'full_name', 'phone']
     search_fields = ['user__username', 'full_name', 'phone']

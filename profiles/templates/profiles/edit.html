@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Profile</title>
+</head>
+<body>
+    <h2>Edit Profile</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>Full Name:</label>
+        <input type="text" name="full_name" value="{{ profile.full_name }}" required><br>
+
+        <label>Phone:</label>
+        <input type="text" name="phone" value="{{ profile.phone }}" required><br>
+
+        <label>Address:</label>
+        <textarea name="address">{{ profile.address }}</textarea><br>
+
+        <label>Profile Image:</label>
+        <input type="file" name="profile_image"><br>
+
+        {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="Current Image" width="150" />
+        {% endif %}
+
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

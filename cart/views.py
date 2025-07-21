@@ -8,7 +8,7 @@ from .models import CartItem
 @login_required
 def add_to_cart(request):
     if request.method == "POST":
-        # Session cart (for UI)
+    
         product_data = {
             'name': request.POST.get('product_name'),
             'price': request.POST.get('product_price'),
@@ -18,12 +18,11 @@ def add_to_cart(request):
         session_cart.append(product_data)
         request.session['cart'] = session_cart
 
-        # ORM cart (DB)
         product_name = request.POST.get('product_name')
         try:
             product_obj = Product.objects.get(name=product_name)
         except Product.DoesNotExist:
-            return redirect('cart')  # skip ORM if not found
+            return redirect('cart')  
 
         existing_item = CartItem.objects.filter(user=request.user, product=product_obj).first()
         if existing_item:
