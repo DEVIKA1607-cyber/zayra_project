@@ -1,220 +1,208 @@
-{% load static %}
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Zayra.in</title>
+  <title>Zayra - Home</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f0f0f0;
+      background-color: #071a3d;
+      color: white;
     }
 
-    header {
-      background: #09214a;
-      color: #fff;
+    /* Top Navbar */
+    .navbar {
       display: flex;
       align-items: center;
-      padding: 10px 10px;
+      justify-content: space-between;
+      background-color: #0d1b3f;
+      padding: 10px 20px;
     }
 
-    .logo {
-      font-weight: bold;
-      margin-right: 20px;
+    .navbar img.logo {
+      height: 40px;
     }
 
     .search-bar {
-      flex: 1;
-      display: flex;
-      align-items: center;
+      flex-grow: 1;
+      margin: 0 20px;
     }
 
     .search-bar input {
       width: 100%;
       padding: 8px 12px;
-      border: none;
       border-radius: 20px;
-      outline: none;
+      border: none;
+      font-size: 14px;
     }
 
-    .login-btn {
-      margin-left: 10px;
-      background: #4c5b7f;
-      border: none;
+    .navbar button {
       padding: 8px 16px;
-      border-radius: 20px;
-      color: #fff;
+      background-color: #103d84;
+      color: white;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
     }
 
-    .icons {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-left: 20px;
-      font-size: 1.2rem;
+    .icon {
+      font-size: 24px;
+      color: white;
       cursor: pointer;
+      margin-left: 10px;
     }
 
-    .categories {
-      background: #09214a;
-      display: flex;
-      overflow-x: auto;
-      padding: 10px 20px;
-      gap: 20px;
-      color: #fff;
-    }
-
-    .categories div {
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .banner {
-      background: #fce5cd;
-      padding: 40px 20px;
-      text-align: center;
-    }
-
-    .products {
-      background: #09214a;
-      color: #fff;
-      padding: 20px;
-    }
-
-    .products h2 {
-      margin: 0 0 20px;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 15px;
-    }
-
-    .product {
-      background: #fff;
-      color: #000;
-      padding: 15px;
-      border-radius: 6px;
-      text-align: center;
-    }
-
-    .product img {
-      width: 100%;
-      border-radius: 4px;
-    }
-
-    .side-menu {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background: #3b4b65;
+    /* Horizontal Category Menu */
+    .category-menu {
       display: flex;
       justify-content: space-around;
-      align-items: center;
-      border-radius: 10px 10px 0 0;
-      overflow: hidden;
+      padding: 10px 0;
+      background-color: #102654;
+      flex-wrap: wrap;
     }
 
-    .side-menu div {
+    .category-menu div {
       display: flex;
       flex-direction: column;
       align-items: center;
       color: #fff;
+      font-size: 14px;
       cursor: pointer;
-      padding: 8px 12px;
-      border-right: 1px solid #2c3e50;
+      width: 70px;
+      margin: 5px 0;
     }
 
-    .side-menu div:last-child {
-      border-right: none;
+    .category-menu img {
+      width: 30px;
+      height: 30px;
+      margin-bottom: 5px;
     }
 
-    .side-menu div:hover {
-      background: #4c5b7f;
+    /* Banner */
+    .banner {
+      background: #fbbebd;
+      color: #000;
+      padding: 20px;
+      text-align: center;
     }
 
-    .side-menu div span {
-      font-size: 1.2rem;
+    .banner img {
+      height: 100px;
+    }
+
+    /* Best Deals */
+    .section-title {
+      background-color: #0c234a;
+      padding: 10px 20px;
+      font-size: 20px;
+    }
+
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      justify-content: center;
+    }
+
+    .product-card {
+      background: #0e2a59;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      width: 120px;
+      color: white;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 100px;
+      object-fit: contain;
+      border-radius: 5px;
+    }
+
+    /* Fixed Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      background-color: #0b1c3d;
+      padding: 10px;
+      border-radius: 10px 0 0 10px;
+    }
+
+    .sidebar div {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .sidebar img {
+      width: 24px;
+      height: 24px;
+      display: block;
+      margin: 0 auto 5px;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="logo">ZAYRA</div>
+  <!-- Navbar -->
+  <div class="navbar">
+    <img src="{% static 'products/imgs/logo.jpg' %}" alt="Zayra Logo" class="logo">
     <div class="search-bar">
       <input type="text" placeholder="Search Zayra.in">
     </div>
-    <button class="login-btn">Login</button>
-    <div class="icons">
-  <a href="{% url 'order_list' %}" style="color: white; text-decoration: none;">
-    <span>&#128100;</span> <!-- user -->
-  </a>
-  <span>&#9776;</span> <!-- menu -->
-</div>
-  </header>
-
-  <div class="categories">
-    <div>All</div>
-    <div>Fashion</div>
-    <div>Mobiles & Tablets</div>
-    <div>Appliances</div>
-    <div>Grocery</div>
-    <div>Kitchen Items</div>
-    <div><a href="{% url 'product_detail' 1 %}" style="text-decoration:none; color: white;">Furniture</a></div>
-    <div>Toys</div>
-    <div>Books & More</div>
+    <button>Login</button>
+    <span class="icon">☰</span>
   </div>
 
+  <!-- Category Menu -->
+  <div class="category-menu">
+    {% for category in categories %}
+      <div>
+       {% if category.image %}
+  <img src="{{ category.image.url }}" alt="{{ category.name }}">
+{% else %}
+  <img src="{% static 'images/default-category.jpg' %}" alt="{{ category.name }}">
+{% endif %}
+
+        <span>{{ category.name }}</span>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Banner -->
   <div class="banner">
     <h2>Under ₹1,499</h2>
     <p>Budget friendly headphones</p>
-    <p>BOAT | BOULT</p>
-    <img src="{% static 'products/imgs/banner.jpg' %}" alt="">
+    <img src="{% static 'products/imgs/banner.jpg' %}" alt="Banner">
   </div>
 
-  <div class="products">
-    <h2>Best Deals on these products</h2>
-    <div class="product-grid">
-      <div class="product"><img src="{% static 'products/imgs/bottom.jpg' %}" alt="">Bottomwear</div>
-      <div class="product"><img src="{% static 'products/imgs/casuals.jpg' %}" alt="">Casuals</div>
-      <div class="product"><img src="{% static 'products/imgs/western.jpg' %}" alt="">Western</div>
-      <div class="product"><img src="{% static 'products/imgs/anarkali.jpg' %}" alt="">Anarkali</div>
-      <div class="product"><img src="{% static 'products/imgs/earphones.jpg' %}" alt="">Earphones</div>
-      <div class="product"><img src="{% static 'products/imgs/noise.jpg' %}" alt="">Noise</div>
-      <div class="product"><img src="{% static 'products/imgs/smartwatch.jpg' %}" alt="">Noise Smartwatch</div>
-      <div class="product"><img src="{% static 'products/imgs/iwatch.jpg' %}" alt="">Iwatch</div>
-      <div class="product"><img src="{% static 'products/imgs/formals.jpg' %}" alt="">Formals</div>
-      <div class="product"><img src="{% static 'products/imgs/tshirts.jpg' %}" alt="">T-shirts</div>
-      <div class="product"><img src="{% static 'products/imgs/kids.jpg' %}" alt="">Kids</div>
-      <div class="product"><img src="{% static 'products/imgs/maxi.jpg' %}" alt="">Maxi</div>
-      <div class="product"><img src="{% static 'products/imgs/boat.jpg' %}" alt="">Boat</div>
-      <div class="product"><img src="{% static 'products/imgs/watch.jpg' %}" alt="">Fastrack</div>
+  <!-- Best Deals -->
+  <div class="section-title">Best Deals on these products</div>
+  <div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+      <img src="{{ product.image.url }}" alt="{{ product.name }}">
+      <h4>{{ product.name }}</h4>
+      <p>₹{{ product.price }}</p>
     </div>
+    {% endfor %}
   </div>
 
-  <div class="side-menu">
-    <div>
-      <span>&#8962;</span> Home
-    </div>
-    <div >
-      <a href="{% url 'wishlist' %}" style="text-decoration: none; color: white;"><span>&#10084;</span> Wishlist</a>
-    </div>
-    <div>
-      <span><a href="" style="text-decoration: none; color: white;"><span>&#10084;</span> Categories</a>
-    </div>
-    <div>
-      <span><a href="{% url 'profile_detail' %}" style="text-decoration: none; color: white;"><span>&#128100;</span> Profile</a>
-    </div>
-    <div >
-      <a href="{% url 'cart' %}" style="text-decoration: none; color: white;"><span>&#128722;</span> Cart</a>
-    </div>
+  <!-- Fixed Sidebar -->
+  <div class="sidebar">
+    <div><img src="{% static 'products/imgs/home.png' %}">Home</div>
+    <div><img src="{% static 'products/imgs/heart.png' %}">Wishlist</div>
+    <div><img src="{% static 'products/imgs/widget.png' %}">Categories</div>
+    <div><img src="{% static 'products/imgs/shopping-cart.png' %}">Cart</div>
+    <div><img src="{% static 'products/imgs/profile.png' %}">Account</div>
   </div>
 
 </body>

@@ -19,13 +19,13 @@ def login_view(request):
                 
                 # Redirect based on role
                 if user.role == 'superadmin':
-                    return redirect('homepage')
+                    return redirect('products:homepage')
                 elif user.role == 'vendor':
-                    return redirect('homepage')
+                    return redirect('products:homepage')
                 elif user.role == 'customer':
-                    return redirect('homepage')
+                    return redirect('products:homepage')
                 elif user.role == 'delivery':
-                    return redirect('homepage')
+                    return redirect('products:homepage')
                 else:
                     return redirect('signup')  # Default fallback
             else:
