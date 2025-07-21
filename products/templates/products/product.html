@@ -30,9 +30,12 @@
   <div class="container mt-4">
     <h1 class="text-center mb-4">{{ selected_category.name }} Products</h1>
 
+    
     <div class="row">
       {% for product in products %}
+        
         <div class="col-md-3 mb-4">
+          <a href="{% url 'products:product_detail' product.id %}" style="text-decoration: none; color: inherit;">
           <div class="card h-100">
             <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
             <div class="card-body">
@@ -41,11 +44,15 @@
               <a href="#" class="btn btn-add-cart">Add to Cart</a>
             </div>
           </div>
+          </a>
+          
         </div>
       {% empty %}
         <p class="text-center">No products in this category.</p>
       {% endfor %}
     </div>
+    </a>
+
   </div>
 </body>
 </html>

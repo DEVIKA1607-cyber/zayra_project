@@ -163,19 +163,20 @@
   </div>
 
   <!-- Category Menu -->
-  <div class="category-menu">
-    {% for category in categories %}
+<div class="category-menu">
+  {% for category in categories %}
+    <a href="{% url 'products:products_by_category' category.id %}" style="text-decoration: none; color: inherit;">
       <div>
-       {% if category.image %}
-  <img src="{{ category.image.url }}" alt="{{ category.name }}">
-{% else %}
-  <img src="{% static 'images/default-category.jpg' %}" alt="{{ category.name }}">
-{% endif %}
-
+        {% if category.image %}
+          <img src="{{ category.image.url }}" alt="{{ category.name }}">
+        {% else %}
+          <img src="{% static 'images/default-category.jpg' %}" alt="{{ category.name }}">
+        {% endif %}
         <span>{{ category.name }}</span>
       </div>
-    {% endfor %}
-  </div>
+    </a>
+  {% endfor %}
+</div>
 
   <!-- Banner -->
   <div class="banner">

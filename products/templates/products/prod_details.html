@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{ product.name }}</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+  <style>
+    body {
+      background-color: #071a3d;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+      background-color: #05132d;
+      padding: 1rem;
+    }
+
+    .navbar input {
+      border-radius: 50px;
+      padding: 5px 20px;
+      width: 60%;
+      border: none;
+      outline: none;
+    }
+
+    .card-custom {
+      background-color: #0b1f42;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      gap: 30px;
+    }
+
+    .product-img {
+      width: 300px;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .price {
+      font-size: 1.8rem;
+      color: gold;
+      font-weight: bold;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: #bbb;
+      margin-left: 10px;
+    }
+
+    .discount {
+      color: #fff899;
+      margin-left: 10px;
+    }
+
+    .size-btn, .color-circle {
+      margin-right: 10px;
+    }
+
+    .size-btn {
+      background-color: #0d2b59;
+      color: white;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 4px;
+    }
+
+    .color-circle {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: inline-block;
+      border: 2px solid #ccc;
+    }
+
+    .stars {
+      color: gold;
+      font-size: 1.3rem;
+    }
+
+    .add-cart-btn {
+      background-color: #233a63;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      margin-top: 20px;
+      font-size: 1rem;
+    }
+
+    .add-cart-btn:hover {
+      background-color: #3b5b91;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar d-flex justify-content-between align-items-center">
+    <img src="{% static 'products/imgs/logo.jpg' %}" alt="ZAYRA Logo" width="60"/>
+    <input type="text" placeholder="Search Zayra.in"/>
+    <img src="{% static 'products/imgs/shopping-cart.png' %}" alt="Cart" width="30"/>
+  </div>
+
+  <!-- PRODUCT CARD -->
+  <div class="container mt-5">
+    <div class="card-custom">
+      <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img"/>
+
+      <div>
+        <h2>{{ product.name }}</h2>
+        <p>Product Id: {{ product.id }}</p>
+
+        <div class="mb-2">
+          <span class="price">₹{{ product.price|floatformat:0 }}</span>
+          <span class="discount">33% off</span>
+          <span class="old-price">₹{{ product.price|add:"7000"|floatformat:0 }}</span>
+        </div>
+
+        <div class="mb-3">
+          <strong>Size</strong><br/>
+          <button class="size-btn">S</button>
+          <button class="size-btn">M</button>
+          <button class="size-btn">L</button>
+        </div>
+
+        <div class="mb-3">
+          <strong>Color</strong><br/>
+          <span class="color-circle" style="background-color: #8b9477;"></span>
+          <span class="color-circle" style="background-color: #c2ba99;"></span>
+          <span class="color-circle" style="background-color: #ab7942;"></span>
+          <span class="color-circle" style="background-color: #eceae1;"></span>
+        </div>
+
+        <div class="mb-2">
+          <span class="stars">★ ★ ★ ★ ☆</span><br/>
+          <small>(Based on 1,234 reviews)</small>
+        </div>
+
+        <button class="add-cart-btn">Add to cart</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
