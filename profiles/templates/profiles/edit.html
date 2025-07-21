@@ -1,31 +1,92 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Edit Profile</title>
+  <meta charset="UTF-8">
+  <title>Edit Profile</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #071a3d;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .edit-card {
+      background-color: #1a2c50;
+      border-radius: 15px;
+      padding: 30px;
+      width: 350px;
+      text-align: left;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input[type="text"],
+    input[type="file"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      background-color: #2b3f66;
+      color: white;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #3c9ef0;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1d79c0;
+    }
+
+    img.preview {
+      margin-top: 10px;
+      width: 100px;
+      border-radius: 50%;
+    }
+  </style>
 </head>
 <body>
+  <div class="edit-card">
     <h2>Edit Profile</h2>
-
     <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <label>Full Name:</label>
-        <input type="text" name="full_name" value="{{ profile.full_name }}" required><br>
+      {% csrf_token %}
 
-        <label>Phone:</label>
-        <input type="text" name="phone" value="{{ profile.phone }}" required><br>
+      <label>Full Name:</label>
+      <input type="text" name="full_name" value="{{ profile.full_name }}" required>
 
-        <label>Address:</label>
-        <textarea name="address">{{ profile.address }}</textarea><br>
+      <label>Phone:</label>
+      <input type="text" name="phone" value="{{ profile.phone }}" required>
 
-        <label>Profile Image:</label>
-        <input type="file" name="profile_image"><br>
+      <label>Address:</label>
+      <textarea name="address">{{ profile.address }}</textarea>
 
-        {% if profile.profile_image %}
-            <img src="{{ profile.profile_image.url }}" alt="Current Image" width="150" />
-        {% endif %}
+      <label>Profile Image:</label>
+      <input type="file" name="profile_image">
+      {% if profile.profile_image %}
+        <img class="preview" src="{{ profile.profile_image.url }}" alt="Current Image">
+      {% endif %}
 
-        <button type="submit">Save</button>
+      <button type="submit">Save</button>
     </form>
+  </div>
 </body>
 </html>

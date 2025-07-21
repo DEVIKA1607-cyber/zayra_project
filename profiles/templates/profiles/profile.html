@@ -1,21 +1,100 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Your Profile</title>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #071a3d;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .profile-card {
+      background-color: #1a2c50;
+      border-radius: 15px;
+      padding: 30px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
+
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 60px;
+    }
+
+    .profile-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #ccc;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .info {
+      margin: 15px 0;
+      padding: 10px;
+      background-color: #2b3f66;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .edit-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #3c9ef0;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .edit-btn:hover {
+      background-color: #1d79c0;
+    }
+  </style>
 </head>
 <body>
-    <h2>Your Profile Details</h2>
+  <img class="logo" src="{% static 'profiles/imgs/logo.jpg' %}" alt="Logo">
 
-    <p><strong>Full Name:</strong> {{ profile.full_name }}</p>
-    <p><strong>Phone:</strong> {{ profile.phone }}</p>
-    <p><strong>Address:</strong> {{ profile.address }}</p>
-
+  <div class="profile-card">
     {% if profile.profile_image %}
-        <img src="{{ profile.profile_image.url }}" alt="Profile Image" width="150" />
+      <img src="{{ profile.profile_image.url }}" class="profile-image" alt="Profile Image">
+    {% else %}
+      <div class="profile-image"></div>
     {% endif %}
 
-    <br><br>
-    <a href="{% url 'profile_edit' %}">Edit Profile</a>
+    <div class="info">
+      <img src="{% static 'profiles/imgs/profile.png' %}" alt="User Icon">
+      <span>{{ profile.full_name }}</span>
+    </div>
+    <div class="info">
+      <img src="{% static 'profiles/imgs/mail.png' %}" alt="Email Icon">
+      <span>{{ profile.user.email }}</span>
+    </div>
+    <div class="info">
+      <img src="{% static 'profiles/imgs/addr.png' %}" alt="Location Icon">
+      <span>{{ profile.address }}</span>
+    </div>
+
+    <button class="edit-btn" onclick="window.location.href='{% url 'profile_edit' %}'">Edit Profile</button>
+  </div>
 </body>
 </html>
