@@ -30,7 +30,7 @@ def upi_page(request):
     if request.method == 'POST':
         amount = request.POST.get('amount', 0)
         return render(request, 'payments/upi.html', {'amount': amount})
-    return redirect('payment_page')
+    return redirect('payment')
 
 @csrf_exempt
 def success_page(request):
@@ -41,4 +41,4 @@ def success_page(request):
             'order_id': order_id,
             'delivery_date': delivery_date.strftime('%B %d, %Y')
         })
-    return redirect('payment_page')
+    return redirect('payment')

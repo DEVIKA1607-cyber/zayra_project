@@ -1,16 +1,40 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Order Success</title>
     <style>
-        body { background-color: #001233; color: white; text-align: center; font-family: sans-serif; padding: 50px; }
+        body {
+            background-color: #001233;
+            color: white;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
         .success-box {
             background: #0f1f4a;
-            display: inline-block;
             padding: 40px;
             border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
         }
+
+        .logo {
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 120px;
+            height: auto;
+            border-radius: 10px;
+        }
+
         .home-btn {
             margin-top: 30px;
             background-color: #5eb9ff;
@@ -22,14 +46,28 @@
             cursor: pointer;
             text-decoration: none;
         }
+
+        h3, h2 {
+            margin: 10px 0;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="success-box">
-        <img src="{% static 'payments/imgs/logo.jpg' %}" alt="Zayra Logo" width="100">
+        <!-- Logo inside the box at the top -->
+        <div class="logo">
+            <img src="{% static 'payments/imgs/logo.jpg' %}" alt="Zayra Logo">
+        </div>
+
         <h3>Order ID : #{{ order_id }}</h3>
         <p>Estimated Delivery : {{ delivery_date }}</p>
         <h2>Your order has been placed!</h2>
+        <br>  
+        <br>
         <a href="/" class="home-btn">Return Home</a>
     </div>
 </body>
