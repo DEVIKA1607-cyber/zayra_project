@@ -29,7 +29,7 @@
 <body>
 
   <header class="header">
-    <img src="{% static 'payments/imgs/logo.jpg' %}" alt="Logo">
+    <img src="{% static 'payments/imgs/logo.png' %}" alt="Logo">
     <form method="POST" action="{% url 'cart:cart_view' %}">
         {% csrf_token %}
         <button class="cancel-btn">CANCEL</button>
