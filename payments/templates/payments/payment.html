@@ -7,183 +7,48 @@
   <title>Zayra Payment Checkout</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <style>
-    body {
-      margin: 0;
-      background-color: #001233;
-      font-family: 'Segoe UI', sans-serif;
-      color: white;
-    }
-
-    .header {
-      background-color: #001c3f;
-      padding: 16px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .header img {
-      height: 60px;
-    }
-
-    .cancel-btn {
-      background-color: #33415c;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-weight: bold;
-    }
-
-    .main-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      padding: 30px;
-      gap: 40px;
-    }
-
-    .left-section, .right-section {
-      flex: 1 1 400px;
-    }
-
-    .delivery-box {
-      margin-bottom: 30px;
-    }
-
-    .delivery-title {
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    .delivery-address {
-      font-size: 16px;
-      margin-top: 5px;
-      color: #bbb;
-    }
-
-    .change-link {
-      font-size: 14px;
-      color: #5eb9ff;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 10px;
-    }
-
-    .continue-btn {
-      background-color: #33415c;
-      color: white;
-      border: none;
-      padding: 10px 30px;
-      border-radius: 30px;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-
-    .payment-methods h5 {
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    .payment-option {
-      background-color: #33415c;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .payment-option.active, .payment-option:hover {
-      background-color: #3d4a63;
-      border: 2px solid #2379cf;
-    }
-
-    .payment-option img {
-      height: 50px;
-      width: 50px;
-      margin-right: 15px;
-      border-radius: 10px;
-    }
-
-    .payment-info .title {
-      font-weight: bold;
-      font-size: 16px;
-    }
-
-    .payment-info .subtitle {
-      font-size: 14px;
-      color: #ccc;
-    }
-
-    .right-section {
-      background-color: #33415c;
-      border-radius: 30px;
-      padding: 25px;
-    }
-
-    .right-section h6 {
-      text-align: center;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    .summary-line {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-
-    .summary-total {
-      font-size: 18px;
-      font-weight: bold;
-      border-top: 1px solid white;
-      padding-top: 10px;
-      margin-top: 15px;
-    }
-
-    .proceed-btn {
-      margin-top: 30px;
-      width: 100%;
-      background-color: #5eb9ff;
-      color: #000;
-      font-weight: bold;
-      border: none;
-      padding: 12px;
-      border-radius: 30px;
-    }
-
-    @media screen and (max-width: 768px) {
-      .main-wrapper {
-        flex-direction: column;
-        padding: 20px;
-      }
-    }
+    body { margin: 0; background-color: #001233; font-family: 'Segoe UI', sans-serif; color: white; }
+    .header { background-color: #001c3f; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+    .header img { height: 60px; }
+    .cancel-btn { background-color: #33415c; color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; }
+    .main-wrapper { display: flex; flex-wrap: wrap; padding: 30px; gap: 40px; }
+    .left-section, .right-section { flex: 1 1 400px; }
+    .continue-btn { background-color: #33415c; color: white; border: none; padding: 10px 30px; border-radius: 30px; margin-top: 20px; font-weight: bold; width: 100%; }
+    .payment-option { background-color: #33415c; padding: 15px; border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; cursor: pointer; }
+    .payment-option:hover { background-color: #3d4a63; border: 2px solid #2379cf; }
+    .payment-option img { height: 50px; width: 50px; margin-right: 15px; border-radius: 10px; }
+    .right-section { background-color: #33415c; border-radius: 30px; padding: 25px; }
+    .summary-line { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 16px; }
+    .summary-total { font-size: 18px; font-weight: bold; border-top: 1px solid white; padding-top: 10px; margin-top: 15px; }
+    .proceed-btn { margin-top: 30px; width: 100%; background-color: #5eb9ff; color: #000; font-weight: bold; border: none; padding: 12px; border-radius: 30px; }
+    .payment-info .title { font-weight: bold; }
+    .payment-info .subtitle { font-size: 12px; color: #ccc; }
   </style>
 </head>
 <body>
 
   <header class="header">
     <img src="{% static 'payments/imgs/logo.jpg' %}" alt="Logo">
-    <button class="cancel-btn">CANCEL</button>
+    <form method="POST" action="{% url 'cart:cart_view' %}">
+        {% csrf_token %}
+            <button class="cancel-btn">CANCEL</button></form>
+
   </header>
 
   <div class="main-wrapper">
     <!-- Left section -->
     <div class="left-section">
-      <div class="delivery-box">
-        <div class="delivery-title">Delivering to User</div>
+      <div class="delivery-box mb-4">
+        <div class="delivery-title fw-bold">Delivering to User</div>
         <div class="delivery-address">9/80 3rd Cross Street, Near AnnaTower Park, Chennai, 600040</div>
-        <a href="#" class="change-link">Change delivery address</a>
-        <br>
-        <button class="continue-btn">Continue</button>
+        <a href="{% url 'profile_edit' %}" class="change-link text-info">Change delivery address</a>
       </div>
 
       <div class="payment-methods">
         <h5>Select a payment method</h5>
 
-        <div class="payment-option featured">
+        <!-- ZayraPay -->
+        <div class="payment-option">
           <img src="{% static 'payments/imgs/pay.jpg' %}" alt="Zayra Pay" />
           <div class="payment-info">
             <div class="title">Pay with Zayra Pay</div>
@@ -191,22 +56,25 @@
           </div>
         </div>
 
+        <!-- UPI -->
         <div class="payment-option">
-          <img src="{% static 'payments/imgs/pay.jpg' %}" alt="UPI" />
+          <img src="{% static 'payments/imgs/sbi.jpg' %}" alt="UPI" />
           <div class="payment-info">
             <div class="title">Pay by any UPI App</div>
-            <div class="subtitle">Google Pay, PhonePe, Paytm</div>
+            <div class="subtitle">Google Pay, PhonePe, Paytm and more</div>
           </div>
         </div>
 
+        <!-- Amazon Pay -->
         <div class="payment-option">
-          <img src="{% static 'payments/imgs/pay.jpg' %}" alt="Amazon Pay" />
+          <img src="{% static 'payments/imgs/card.jpg' %}" alt="Amazon Pay" />
           <div class="payment-info">
             <div class="title">Amazon Pay Balance</div>
             <div class="subtitle">Available balance: ₹0.00</div>
           </div>
         </div>
 
+        <!-- Net Banking -->
         <div class="payment-option">
           <img src="{% static 'payments/imgs/banking.jpg' %}" alt="Net Banking" />
           <div class="payment-info">
@@ -214,13 +82,14 @@
           </div>
         </div>
 
+        <!-- COD -->
         <div class="payment-option">
-          <img src="{% static 'payments/imgs/card.jpg' %}" alt="COD" />
+          <img src="{% static 'payments/imgs/cash.png' %}" alt="Cash on Delivery" />
           <div class="payment-info">
-            <div class="title">Cash on Delivery</div>
-            <div class="subtitle">Cash, UPI & Cards accepted</div>
+            <div class="title">Cash on Delivery / Pay by delivery</div>
+            <div class="subtitle">Cash, UPI and Cards accepted</div>
           </div>
-        </div>
+        </div>  
 
         <button class="continue-btn">Continue</button>
       </div>
@@ -228,26 +97,18 @@
 
     <!-- Right section -->
     <div class="right-section">
-      <h6>USE THIS PAYMENT METHOD</h6>
-
-      <div class="summary-line">
-        <span>ITEMS:</span><span>8</span>
+      <div class="text-center mb-3">
+        <button class="continue-btn w-100">USE THIS PAYMENT METHOD</button>
       </div>
-      <div class="summary-line">
-        <span>DELIVERY:</span><span>6</span>
-      </div>
-      <div class="summary-line">
-        <span>TOTAL:</span><span>14</span>
-      </div>
-      <div class="summary-line">
-        <span>PROMOTION APPLIED:</span><span>1 COUPON</span>
-      </div>
-      <div class="summary-line summary-total">
-        <span>ORDER TOTAL:</span><span>₹33867</span>
-      </div>
+      <div class="summary-line"><span>ITEMS:</span><span>{{ item_count }}</span></div>
+      <div class="summary-line"><span>DELIVERY:</span><span>₹{{ delivery_charge }}</span></div>
+      <div class="summary-line"><span>TOTAL:</span><span>₹{{ subtotal }}</span></div>
+      <div class="summary-line"><span>PROMOTION APPLIED:</span><span>{% if discount > 0 %}1 COUPON{% else %}None{% endif %}</span></div>
+      <div class="summary-total"><span>ORDER TOTAL:</span><span>₹{{ order_total }}</span></div>
 
       <form method="POST" action="{% url 'upi_page' %}">
         {% csrf_token %}
+        <input type="hidden" name="amount" value="{{ order_total }}">
         <button type="submit" class="proceed-btn">PROCEED TO PAY</button>
       </form>
     </div>

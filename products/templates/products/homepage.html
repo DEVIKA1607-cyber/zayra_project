@@ -130,11 +130,17 @@
     .sidebar {
       position: fixed;
       top: 50%;
-      right: 0;
+      right: -200px; /* Push it off-screen */
       transform: translateY(-50%);
       background-color: #0b1c3d;
       padding: 10px;
       border-radius: 10px 0 0 10px;
+      transition: right 0.3s ease;
+    }
+
+/* Sidebar - visible when active */
+    .sidebar.active {
+      right: 0;
     }
 
     .sidebar div {
@@ -162,7 +168,7 @@
       <input type="text" placeholder="Search Zayra.in">
     </div>
     <div class="navbar-button"><a href="{% url 'login' %} " style="text-decoration: none; color:white;" >Login</a></div>
-    <span class="icon">☰</span>
+    <span class="icon" id="menu-toggle">☰</span>
   </div>
 
   <!-- Category Menu -->
@@ -208,6 +214,11 @@
     <div><a href="{% url 'cart:cart_view'%}" style="text-decoration: none; color: white;"><img src="{% static 'products/imgs/shopping-cart.png' %}">Cart</div></a>
     <div><a href="{% url 'profile_detail'%}" style="text-decoration: none; color: white;"><img src="{% static 'products/imgs/profile.png' %}">Account</div></a>
   </div>
+<script>
+  document.getElementById("menu-toggle").addEventListener("click", function () {
+    document.querySelector(".sidebar").classList.toggle("active");
+  });
+</script>
 
 </body>
 </html>
