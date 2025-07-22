@@ -23,6 +23,7 @@
     .proceed-btn { margin-top: 30px; width: 100%; background-color: #5eb9ff; color: #000; font-weight: bold; border: none; padding: 12px; border-radius: 30px; }
     .payment-info .title { font-weight: bold; }
     .payment-info .subtitle { font-size: 12px; color: #ccc; }
+    input[type="radio"] { accent-color: #5eb9ff; transform: scale(1.2); margin-right: 10px; }
   </style>
 </head>
 <body>
@@ -31,88 +32,90 @@
     <img src="{% static 'payments/imgs/logo.jpg' %}" alt="Logo">
     <form method="POST" action="{% url 'cart:cart_view' %}">
         {% csrf_token %}
-            <button class="cancel-btn">CANCEL</button></form>
-
+        <button class="cancel-btn">CANCEL</button>
+    </form>
   </header>
 
-  <div class="main-wrapper">
-    <!-- Left section -->
-    <div class="left-section">
-      <div class="delivery-box mb-4">
-        <div class="delivery-title fw-bold">Delivering to User</div>
-        <div class="delivery-address">9/80 3rd Cross Street, Near AnnaTower Park, Chennai, 600040</div>
-        <a href="{% url 'profile_edit' %}" class="change-link text-info">Change delivery address</a>
+  <form method="POST" action="{% url 'place_order' %}">
+    {% csrf_token %}
+    <input type="hidden" name="shipping_address" value="9/80 3rd Cross Street, Near AnnaTower Park, Chennai, 600040">
+    <input type="hidden" name="billing_address" value="Same as shipping">
+    <input type="hidden" name="amount" value="{{ order_total }}">
+
+    <div class="main-wrapper">
+      <!-- Left section -->
+      <div class="left-section">
+        <div class="delivery-box mb-4">
+          <div class="delivery-title fw-bold">Delivering to User</div>
+          <div class="delivery-address">9/80 3rd Cross Street, Near AnnaTower Park, Chennai, 600040</div>
+          <a href="{% url 'profile_edit' %}" class="change-link text-info">Change delivery address</a>
+        </div>
+
+        <div class="payment-methods">
+          <h5>Select a payment method</h5>
+
+          <!-- ZayraPay -->
+          <label class="payment-option">
+            <input type="radio" name="payment_method" value="WALLET" required>
+            <img src="{% static 'payments/imgs/pay.jpg' %}" alt="Zayra Pay" />
+            <div class="payment-info">
+              <div class="title">Pay with Zayra Pay</div>
+              <div class="subtitle">Earn rewards everytime</div>
+            </div>
+          </label>
+
+          <!-- UPI -->
+          <label class="payment-option">
+            <input type="radio" name="payment_method" value="UPI" required>
+            <img src="{% static 'payments/imgs/sbi.jpg' %}" alt="UPI" />
+            <div class="payment-info">
+              <div class="title">Pay by any UPI App</div>
+              <div class="subtitle">Google Pay, PhonePe, Paytm and more</div>
+            </div>
+          </label>
+
+          <!-- Amazon Pay -->
+          <label class="payment-option">
+            <input type="radio" name="payment_method" value="AMAZON" required>
+            <img src="{% static 'payments/imgs/card.jpg' %}" alt="Amazon Pay" />
+            <div class="payment-info">
+              <div class="title">Amazon Pay Balance</div>
+              <div class="subtitle">Available balance: ₹0.00</div>
+            </div>
+          </label>
+
+          <!-- Net Banking -->
+          <label class="payment-option">
+            <input type="radio" name="payment_method" value="NETBANKING" required>
+            <img src="{% static 'payments/imgs/banking.jpg' %}" alt="Net Banking" />
+            <div class="payment-info">
+              <div class="title">Net Banking</div>
+            </div>
+          </label>
+
+          <!-- COD -->
+          <label class="payment-option">
+            <input type="radio" name="payment_method" value="COD" required>
+            <img src="{% static 'payments/imgs/cash.png' %}" alt="Cash on Delivery" />
+            <div class="payment-info">
+              <div class="title">Cash on Delivery / Pay by delivery</div>
+              <div class="subtitle">Cash, UPI and Cards accepted</div>
+            </div>
+          </label>
+
+          <button type="submit" class="continue-btn">PLACE ORDER</button>
+        </div>
       </div>
 
-      <div class="payment-methods">
-        <h5>Select a payment method</h5>
-
-        <!-- ZayraPay -->
-        <div class="payment-option">
-          <img src="{% static 'payments/imgs/pay.jpg' %}" alt="Zayra Pay" />
-          <div class="payment-info">
-            <div class="title">Pay with Zayra Pay</div>
-            <div class="subtitle">Earn rewards everytime</div>
-          </div>
-        </div>
-
-        <!-- UPI -->
-        <div class="payment-option">
-          <img src="{% static 'payments/imgs/sbi.jpg' %}" alt="UPI" />
-          <div class="payment-info">
-            <div class="title">Pay by any UPI App</div>
-            <div class="subtitle">Google Pay, PhonePe, Paytm and more</div>
-          </div>
-        </div>
-
-        <!-- Amazon Pay -->
-        <div class="payment-option">
-          <img src="{% static 'payments/imgs/card.jpg' %}" alt="Amazon Pay" />
-          <div class="payment-info">
-            <div class="title">Amazon Pay Balance</div>
-            <div class="subtitle">Available balance: ₹0.00</div>
-          </div>
-        </div>
-
-        <!-- Net Banking -->
-        <div class="payment-option">
-          <img src="{% static 'payments/imgs/banking.jpg' %}" alt="Net Banking" />
-          <div class="payment-info">
-            <div class="title">Net Banking</div>
-          </div>
-        </div>
-
-        <!-- COD -->
-        <div class="payment-option">
-          <img src="{% static 'payments/imgs/cash.png' %}" alt="Cash on Delivery" />
-          <div class="payment-info">
-            <div class="title">Cash on Delivery / Pay by delivery</div>
-            <div class="subtitle">Cash, UPI and Cards accepted</div>
-          </div>
-        </div>  
-
-        <button class="continue-btn">Continue</button>
+      <!-- Right section -->
+      <div class="right-section">
+        <div class="summary-line"><span>ITEMS:</span><span>{{ item_count }}</span></div>
+        <div class="summary-line"><span>DELIVERY:</span><span>₹{{ delivery_charge }}</span></div>
+        <div class="summary-line"><span>TOTAL:</span><span>₹{{ subtotal }}</span></div>
+        <div class="summary-line"><span>PROMOTION APPLIED:</span><span>{% if discount > 0 %}1 COUPON{% else %}None{% endif %}</span></div>
+        <div class="summary-total"><span>ORDER TOTAL:</span><span>₹{{ order_total }}</span></div>
       </div>
     </div>
-
-    <!-- Right section -->
-    <div class="right-section">
-      <div class="text-center mb-3">
-        <button class="continue-btn w-100">USE THIS PAYMENT METHOD</button>
-      </div>
-      <div class="summary-line"><span>ITEMS:</span><span>{{ item_count }}</span></div>
-      <div class="summary-line"><span>DELIVERY:</span><span>₹{{ delivery_charge }}</span></div>
-      <div class="summary-line"><span>TOTAL:</span><span>₹{{ subtotal }}</span></div>
-      <div class="summary-line"><span>PROMOTION APPLIED:</span><span>{% if discount > 0 %}1 COUPON{% else %}None{% endif %}</span></div>
-      <div class="summary-total"><span>ORDER TOTAL:</span><span>₹{{ order_total }}</span></div>
-
-      <form method="POST" action="{% url 'upi_page' %}">
-        {% csrf_token %}
-        <input type="hidden" name="amount" value="{{ order_total }}">
-        <button type="submit" class="proceed-btn">PROCEED TO PAY</button>
-      </form>
-    </div>
-  </div>
-
+  </form>
 </body>
 </html>

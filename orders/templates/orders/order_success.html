@@ -66,9 +66,10 @@
         <h3>Order ID : #{{ order_id }}</h3>
         <p>Estimated Delivery : {{ delivery_date }}</p>
         <h2>Your order has been placed!</h2>
+        <p>Thank you for shopping with Zayra. Your order is on its way.</p>
         <br>  
         <br>
-        <a href="/" class="home-btn">Return Home</a>
+        <a href="{% url 'products:homepage' %}" class="home-btn">Continue Shopping</a>
     </div>
 </body>
 </html>

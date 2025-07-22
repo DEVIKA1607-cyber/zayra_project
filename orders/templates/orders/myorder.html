@@ -94,90 +94,39 @@
   </div>
 
   <div class="container">
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-
-      <div class="col">
-        <div class="order-card">
-          <img src="https://storage.googleapis.com/a1aa/image/5eff5588-759f-4327-abe5-8826e1ef0f33.jpg" alt="Traditional sofa" />
-          <div class="flex-grow-1">
-            <div class="d-flex justify-content-between align-items-center">
-              <span>Delivered on Jul 15</span>
-              <a href="{% url 'track_list'%}"><i class="fas fa-chevron-right"></i></a>
-            </div>
-            <p class="text-uppercase fw-bold mb-1">Traditional Sofa</p>
-            <div class="rating text-warning">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="order-card">
-          <img src="https://storage.googleapis.com/a1aa/image/89a9b72c-c0a1-4a44-7c16-ea66b6d61c58.jpg" alt="Libas Dress" />
-          <div class="flex-grow-1">
-            <div class="d-flex justify-content-between align-items-center">
-              <span>Delivered on Jul 16</span>
-              <a href="{% url 'track_list'%}"><i class="fas fa-chevron-right"></i></a>
-            </div>
-            <p class="text-uppercase fw-bold mb-1">Libas Women's Dress</p>
-            <div class="rating text-warning">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for order, items in order_data %}
+      {% for item in items %}
+        <div class="col">
+          <div class="order-card">
+            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" />
+            <div class="flex-grow-1">
+              <div class="d-flex justify-content-between align-items-center">
+                <span>Delivered on {{ order.created_at|date:"M d" }}</span>
+                <a href="{% url 'track' order.id %}"><i class="fas fa-chevron-right"></i></a>
+              </div>
+              <p class="text-uppercase fw-bold mb-1">{{ item.product.name }}</p>
+              <div class="rating text-warning">
+                {% for i in "12345"|slice:":item.product.rating"|make_list %}
+                  <i class="fas fa-star"></i>
+                {% endfor %}
+                {% for i in "12345"|slice:"item.product.rating:"|make_list %}
+                  <i class="far fa-star"></i>
+                {% endfor %}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
+      {% endfor %}
+    {% empty %}
       <div class="col">
-        <div class="order-card">
-          <img src="https://storage.googleapis.com/a1aa/image/1c39eae9-6aa4-4e85-c2e9-28a97e124654.jpg" alt="Nail Polish" />
-          <div class="flex-grow-1">
-            <div class="d-flex justify-content-between align-items-center">
-              <span>Delivered on Jul 7</span>
-              <a href="{% url 'track_list'%}"><i class="fas fa-chevron-right"></i></a>
-            </div>
-            <p class="text-uppercase fw-bold mb-1">Premium Nail Polish</p>
-            <div class="rating text-warning">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-            </div>
-          </div>
-        </div>
+        <p>No orders found.</p>
       </div>
-
-      <div class="col">
-        <div class="order-card">
-          <img src="https://storage.googleapis.com/a1aa/image/adc54242-6c50-49b1-c688-6a440e38340b.jpg" alt="Trolley" />
-          <div class="flex-grow-1">
-            <div class="d-flex justify-content-between align-items-center">
-              <span>Delivered on Jul 7</span>
-              <a href="{% url 'track_list'%}"><i class="fas fa-chevron-right"></i></a>
-            </div>
-            <p class="text-uppercase fw-bold mb-1">Trolley</p>
-            <div class="rating text-warning">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-              <i class="far fa-star"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    {% endfor %}
   </div>
+</div>
+
+
 </body>
 
 </html>
