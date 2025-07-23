@@ -6,6 +6,7 @@ from orders.models import Order, OrderItem
 from payments.models import Payment
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -98,3 +99,8 @@ def order_success(request, order_id):
         'order_id': order.id,
         'delivery_date': delivery_date.date()
     })
+
+
+@login_required
+def profile_panel(request):
+    return render(request, 'profile_detail')

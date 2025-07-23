@@ -86,9 +86,10 @@
 
   <div class="container">
     <div class="profile">
-      Reshika
+      {{ user.first_name|default:user.username }}
       <span>💰 50</span>
     </div>
+
 
     <div class="button-group">
       <!-- Changed Orders button to a link -->
