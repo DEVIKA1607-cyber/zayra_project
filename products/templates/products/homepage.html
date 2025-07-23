@@ -39,16 +39,22 @@
       font-size: 14px;
     }
 
-    .navbar-button {
-      margin-right: 40px;
-      padding: 8px 16px ;
-      background-color: #103d84;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none;
+    .profile-icon {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 50%;
+      vertical-align: middle;
     }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin-right: 20px;
+    }
+
 
     .icon {
       font-size: 24px;
@@ -167,7 +173,9 @@
     <div class="search-bar">
       <input type="text" placeholder="Search Zayra.in">
     </div>
-    <div class="navbar-button"><a href="{% url 'login' %} " style="text-decoration: none; color:white;" >Login</a></div>
+    <a href="{% url 'profile_detail' %}" class="profile">
+      <img src="{% static 'products/imgs/profile.png' %}" alt="Profile" class="profile-icon">
+    </a>
     <span class="icon" id="menu-toggle">☰</span>
   </div>
 
