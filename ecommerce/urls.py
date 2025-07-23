@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from accounts.views import role_redirect_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,6 +16,7 @@ urlpatterns = [
     path('payments/', include('payments.urls')),
     path('delivery/', include('delivery.urls')),
     path('analytics/', include('analytics.urls')),
+    path('redirect/', role_redirect_view, name='role_redirect'),
 ]
 
 if settings.DEBUG:

@@ -16,18 +16,7 @@ def login_view(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                
-                # Redirect based on role
-                if user.role == 'superadmin':
-                    return redirect('products:homepage')
-                elif user.role == 'vendor':
-                    return redirect('products:homepage')
-                elif user.role == 'customer':
-                    return redirect('products:homepage')
-                elif user.role == 'delivery':
-                    return redirect('products:homepage')
-                else:
-                    return redirect('signup')  # Default fallback
+                return redirect('role_redirect')  # ✅ this is the key change
             else:
                 messages.error(request, "Account is inactive.")
         else:
@@ -79,3 +68,14 @@ def signup_view(request):
         return redirect('login')
 
     return render(request, 'accounts/signup.html')
+
+def role_redirect_view(request):
+    role = request.user.role
+    if role == 'vendor':
+        return redirect('products:vendor_dashboard')
+    elif role == 'delivery':
+        return redirect('delivery_dashboard')
+    elif role == 'superadmin':
+        return redirect('/admin/')
+    else:
+        return redirect('products:homepage') 

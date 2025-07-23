@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Product, Category
 from cart.models import WishlistItem
+from accounts.decorators import role_required
 
 def homepage(request):
     categories = Category.objects.all()
-    products = Product.objects.order_by('-id')[:8]  # show latest 8
+    products = Product.objects.order_by('-id')[:8] 
     return render(request, 'products/homepage.html', {
         'categories': categories,
         'products': products
@@ -30,3 +31,10 @@ def product_detail(request, pk):
 def category_view(request):
     categories = Category.objects.all()
     return render(request, 'products/categories.html', {'categories': categories})
+
+
+
+@role_required('vendor')
+def vendor_dashboard(request):
+    return render(request, 'products/vendor_dashboard.html')
+
