@@ -2,6 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from .models import Product, Category
 from cart.models import WishlistItem
 from accounts.decorators import role_required
+from orders.models import OrderItem
+from .forms import ProductForm
+from django.shortcuts import redirect
 
 def homepage(request):
     categories = Category.objects.all()
@@ -36,5 +39,28 @@ def category_view(request):
 
 @role_required('vendor')
 def vendor_dashboard(request):
-    return render(request, 'products/vendor_dashboard.html')
+    vendor = request.user
+    products = Product.objects.filter(vendor=vendor)  
+    order_items = OrderItem.objects.filter(product__vendor=vendor)
+    total_orders = order_items.values('order').distinct().count()
+    total_earnings = sum(item.price * item.quantity for item in order_items if item.order.status == 'completed')
 
+    context = {
+        'products': products,
+        'total_earnings': total_earnings,
+        'total_products': products.count(),
+        'total_orders': total_orders,
+    }
+    return render(request, 'products/vendor_dashboard.html', context)
+@role_required('vendor')
+def add_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.vendor = request.user  # Automatically assign logged-in vendor
+            product.save()
+            return redirect('products:vendor_dashboard')  # Redirect to vendor dashboard
+    else:
+        form = ProductForm()
+    return render(request, 'products/add_product.html', {'form': form})
