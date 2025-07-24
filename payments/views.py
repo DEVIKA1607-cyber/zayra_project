@@ -3,18 +3,31 @@ from django.views.decorators.csrf import csrf_exempt
 import random
 from datetime import datetime, timedelta
 from cart.models import CartItem
+from orders.models import Order
 
 @csrf_exempt
 def payment_page(request):
     cart_items = CartItem.objects.filter(user=request.user)
     item_count = cart_items.count()
-    delivery_charge = 6  # or calculate dynamically
+    delivery_charge = 6
+    discount = 0
 
     subtotal = sum(item.product.price * item.quantity for item in cart_items)
-    
-    # Apply coupon logic if applicable
-    discount = 0
     total = subtotal + delivery_charge - discount
+
+    shipping_address = ""
+
+    if request.method == "POST":
+        shipping_address = request.POST.get('shipping_address')
+
+        # Create and save the order
+        order = Order.objects.create(
+            user=request.user,
+            shipping_address=shipping_address,
+            total_amount=total
+        )
+        # You can also redirect to payment success or next step
+        return redirect('upi_page')  # or 'success_page' depending on flow
 
     context = {
         'item_count': item_count,
@@ -22,6 +35,7 @@ def payment_page(request):
         'subtotal': subtotal,
         'discount': discount,
         'order_total': total,
+        'shipping_address': shipping_address,
     }
     return render(request, 'payments/payment.html', context)
 

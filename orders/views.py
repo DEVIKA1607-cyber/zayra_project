@@ -6,8 +6,9 @@ from orders.models import Order, OrderItem
 from payments.models import Payment
 from django.utils import timezone
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
 from delivery.utils import assign_least_busy_delivery_staff
+from django.contrib import messages
+from delivery.models import DeliveryAssignment
 
 
 def order_list(request):
@@ -50,11 +51,19 @@ def place_order(request):
         # Calculate total
         total = sum(item.product.price * item.quantity for item in cart_items)
 
+        # Get and validate shipping address
+        shipping_address = (request.POST.get('shipping_address') or '').strip()
+        if not shipping_address or len(shipping_address) < 10:
+            messages.error(request, "Please provide a valid shipping address.")
+            return redirect('cart:cart_view')
+
+        billing_address = (request.POST.get('billing_address') or 'No billing').strip()
+
         # Create Order
         order = Order.objects.create(
             user=user,
-            shipping_address=request.POST.get('shipping_address', 'No address'),
-            billing_address=request.POST.get('billing_address', 'No billing'),
+            shipping_address=shipping_address,
+            billing_address=billing_address,
             total_amount=total
         )
 
@@ -77,14 +86,14 @@ def place_order(request):
             paid=True if payment_method != 'COD' else False
         )
 
+        # Assign delivery staff
         assigned = assign_least_busy_delivery_staff(order)
         if assigned:
             print(f"Assigned to {assigned.username}")
 
-        # Delete cart items only after order is created successfully
+        # Clear cart
         cart_items.delete()
 
-        # Redirect to success page with order ID
         return redirect('order_success', order_id=order.id)
 
     return redirect('cart:cart_view')
@@ -108,3 +117,13 @@ def order_success(request, order_id):
 @login_required
 def profile_panel(request):
     return render(request, 'profile_detail')
+
+def checkout_view(request):
+    last_order = Order.objects.filter(user=request.user).order_by('-created_at').first()
+    shipping_address = last_order.shipping_address if last_order else ''
+
+    context = {
+        'shipping_address': shipping_address,
+        # your other context: cart items, total, etc.
+    }
+    return render(request, 'payments/payment.html', context)
