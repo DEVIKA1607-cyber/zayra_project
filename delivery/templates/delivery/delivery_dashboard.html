@@ -1,4 +1,135 @@
-{% csrf_token %}
 
-<h2>Welcome, {{ request.user.username }} (Delivery Staff)</h2>
-<p>This is your delivery dashboard.</p>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Delivery Dashboard - Zayra</title>
+  <link rel="stylesheet" href="{% static 'css/delivery.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <style>
+    body {
+    background-color: #071a3d;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    }
+
+    .navbar {
+    background: #001233;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+
+    .search-bar input {
+    padding: 8px;
+    border-radius: 4px;
+    border: none;
+    width: 300px;
+    }
+
+    .header {
+    text-align: center;
+    padding: 30px;
+    background-color: #0f2549;
+    }
+
+    .deliveries {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    }
+
+    .card {
+    background-color: #0f1f4a;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .card button {
+    background-color: #00bfa6;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">ZAYRA</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search Orders...">
+    </div>
+    <div class="user-info">
+      Welcome, {{ request.user.username }}
+    </div>
+  </nav>
+
+  <header class="header">
+    <h1>Delivery Staff Dashboard</h1>
+    <p>Track and update your assigned orders</p>
+  </header>
+
+  <section class="deliveries">
+    {% for item in deliveries %}
+      <div class="card">
+        <h3>Order #{{ item.order.id }}</h3>
+        <p><strong>Customer:</strong> {{ item.order.customer.username }}</p>
+        <p><strong>Address:</strong> {{ item.order.shipping_address }}</p>
+        <p><strong>Status:</strong> <span class="status">{{ item.status }}</span></p>
+        <a href="https://www.google.com/maps/search/{{ item.order.shipping_address|urlencode }}" target="_blank">📍 View on Map</a>
+        <br><br>
+        {% if item.status != 'delivered' %}
+          <button onclick="markDelivered('{{ item.id }}')">Mark as Delivered</button>
+        {% endif %}
+      </div>
+    {% empty %}
+      <p>No deliveries assigned.</p>
+    {% endfor %}
+  </section>
+
+  <script>
+  // Get CSRF token from cookies
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  const csrftoken = getCookie('csrftoken');
+
+  function markDelivered(assignmentId) {
+    axios.post(`/delivery/mark-delivered/${assignmentId}/`, {}, {
+      headers: {
+        'X-CSRFToken': csrftoken
+      }
+    })
+    .then(res => {
+      alert("Delivery marked as completed!");
+      location.reload();
+    })
+    .catch(err => {
+      alert("Error updating delivery.");
+    });
+  }
+</script>
+
+</body>
+</html>

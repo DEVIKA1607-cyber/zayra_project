@@ -7,7 +7,7 @@ from payments.models import Payment
 from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-
+from delivery.utils import assign_least_busy_delivery_staff
 
 
 def order_list(request):
@@ -76,6 +76,10 @@ def place_order(request):
             status='Pending' if payment_method == 'COD' else 'Completed',
             paid=True if payment_method != 'COD' else False
         )
+
+        assigned = assign_least_busy_delivery_staff(order)
+        if assigned:
+            print(f"Assigned to {assigned.username}")
 
         # Delete cart items only after order is created successfully
         cart_items.delete()
