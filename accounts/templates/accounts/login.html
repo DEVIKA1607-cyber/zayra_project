@@ -3,68 +3,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Zayra Login</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
   <style>
-    body {
-      background-color: #001233;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
+
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    .main-container {
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
+    }
+
+    .left-panel, .right-panel {
+      flex: 1;
+      padding: 30px;
+    }
+
+    .left-panel {
+      background-color: rgb(42, 59, 94);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative; /* Needed for absolute button inside */
+    }
+
+    .right-panel {
+      background: url("{% static 'accounts/imgs/right img.jpg' %}") no-repeat center center/cover;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 400px;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      background-color: white;
+    }
+
     .btn-custom {
-      background-color: #5C677D; 
+      background-color: #5C677D;
       border: none;
       color: white;
     }
+
     .btn-custom:hover {
       background-color: #ff6633;
     }
-    .logo-img {
-      max-width: 100px;
-      margin: 0 auto 20px;
-      display: block;
+
+    .glass-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      z-index: 10;
+    }
+
+    .glass-button:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .left-panel, .right-panel {
+        width: 100%;
+        padding: 20px;
+        min-height: 50vh;
+      }
+
+      .glass-button {
+        font-size: 1rem;
+        padding: 10px 16px;
+      }
     }
   </style>
+
 </head>
 <body>
 
-  <div class="container d-flex justify-content-center align-items-center min-vh-100">
-    <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+  <div class="main-container">
 
-      
-      <img src="{% static 'accounts/imgs/logo.jpg' %}" alt="Zayra Logo" class="logo-img" />
+    <!-- Left: Login Form -->
+    <div class="left-panel">
+      <!-- 🟦 About Us Button in Top-Right of Left Panel -->
+      <a href="" class="glass-button">About Us</a>
 
-      <h3 class="text-center mb-4">Login to Zayra</h3>
+      <div class="card login-card">
+        <img src="{% static 'accounts/imgs/logo.jpg' %}" alt="Zayra Logo" class="logo-img mb-3 mx-auto d-block" style="max-width: 100px;" />
+        <h3 class="text-center mb-4">Login to Zayra</h3>
 
-      <form method="POST" action="{% url 'login' %}">
-        {% csrf_token %}      
+        <form method="POST" action="{% url 'login' %}">
+          {% csrf_token %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
 
-        {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert-danger">{{ message }}</div>
-          {% endfor %}
-        {% endif %}
+          <div class="form-group mb-3">
+            <label for="username">Username</label>
+            <input name="username" id="username" type="text" class="form-control" required>
+          </div>
 
-        <div class="form-group mb-3">
-          <label for="username">Username</label>
-          <input name="username" id="username" type="text" class="form-control" required>
-        </div>
+          <div class="form-group mb-3">
+            <label for="password">Password</label>
+            <input name="password" id="password" type="password" class="form-control" required>
+          </div>
 
-        <div class="form-group mb-3">
-          <label for="password">Password</label>
-          <input name="password" id="password" type="password" class="form-control" required>
-        </div>
+          <button type="submit" class="btn btn-custom w-100">Login</button>
+        </form>
 
-        <button type="submit" class="btn btn-custom w-100">Login</button>
-      </form>
-
-      <!-- 🟦 Signup Link -->
-      <p class="text-center mt-3">
-        Don't have an account? <a href="{% url 'signup' %}">Create Account</a>
-      </p>
-
+        <p class="text-center mt-3">
+          Don't have an account? <a href="{% url 'signup' %}">Create Account</a>
+        </p>
+      </div>
     </div>
+
+    <!-- Right: Background Image -->
+    <div class="right-panel">
+      <!-- No button here now -->
+    </div>
+
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
