@@ -79,3 +79,5 @@ def role_redirect_view(request):
         return redirect('/admin/')
     else:
         return redirect('products:homepage') 
+def aboutus(request):
+    return render(request,'accounts/about.html')

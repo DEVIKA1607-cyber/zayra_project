@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Zayra</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #071a3d;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .team-card {
+      background-color: #0b2559;
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s;
+    }
+
+    .team-card:hover {
+      transform: scale(1.03);
+    }
+
+    .team-img {
+      border-radius: 50%;
+      height: 120px;
+      width: 120px;
+      object-fit: cover;
+      margin: 15px auto;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-top: 40px;
+      text-align: center;
+      color: #00bfff;
+    }
+
+    .project-desc {
+      font-size: 1.1rem;
+      text-align: center;
+      max-width: 800px;
+      margin: 20px auto 50px;
+    }
+
+    .card-title {
+      color: #00bfff;
+      font-size: 1.2rem;
+    }
+
+    .role {
+      color: #ffffffb0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container py-5">
+    <h2 class="section-title">About Zayra</h2>
+    <p class="project-desc">
+      Zayra is a modern and user-friendly e-commerce platform designed to provide seamless online shopping experiences. 
+      Our platform empowers vendors to manage their products and customers to shop effortlessly. We prioritize security, responsiveness, and clean user interface to enhance the experience for everyone.
+    </p>
+
+    <h2 class="section-title">Meet the Team</h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+      <!-- Team Member 1 -->
+      <div class="col">
+        <div class="card team-card text-center p-3">
+          <img src="{% static 'accounts/imgs/devika.jpg' %}" alt="devika" class="team-img">
+          <div class="card-body">
+            <h5 class="card-title">DEVIKA D</h5>
+            <p class="role">UIUX Designer</p>
+            <p class="role">Designs user-friendly layouts, wireframes, and ensures a seamless user experience.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Member 2 -->
+      <div class="col">
+        <div class="card team-card text-center p-3">
+            <img src="{% static 'accounts/imgs/sangeetha.jpg' %}" alt="sangeetha" class="team-img">
+
+          <div class="card-body">
+            <h5 class="card-title">SANGEETHA S</h5>
+            <p class="role">Backend Developer</p>
+            <p class="role">Handles both frontend and backend integration, Django views, templates, and deployment.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Member 3 -->
+      <div class="col">
+        <div class="card team-card text-center p-3">
+            <img src="{% static 'accounts/imgs/thanu.jpg' %}" alt="thanu" class="team-img">
+
+          <div class="card-body">
+            <h5 class="card-title">THANUSHREE VIJAYAKANTH</h5>
+            <p class="role">Backend Developer</p>
+            <p class="role">Handles both frontend and backend integration, Django views, templates, and deployment.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card team-card text-center p-3">
+          <img src="{% static 'accounts/imgs/nethra.jpg' %}" alt="nethra" class="team-img">
+          <div class="card-body">
+            <h5 class="card-title">NETHRAA N</h5>
+            <p class="role">Frontend Developer</p>
+
+            <p class="role">Creates responsive pages using HTML, CSS, Bootstrap, and integrates with Django.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card team-card text-center p-3">
+          <img src="{% static 'accounts/imgs/annie.png' %}" alt="annie" class="team-img">
+          <div class="card-body">
+            <h5 class="card-title">ANNIE JENIFSIKA A</h5>
+            <p class="role">UI/UX Designer</p>
+            <p class="role">Designs user-friendly layouts, wireframes, and ensures a seamless user experience.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card team-card text-center p-3">
+          <img src="{% static 'accounts/imgs/supriya.jpg' %}" alt="supriya" class="team-img">
+          <div class="card-body">
+            <h5 class="card-title">SUPRIYA S J</h5>
+            <p class="role">Frontend Developer</p>
+            <p class="role">Creates responsive pages using HTML, CSS, Bootstrap, and integrates with Django.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card team-card text-center p-3">
+          <img src="{% static 'accounts/imgs/kabira.png' %}" alt="kabira" class="team-img">
+          <div class="card-body">
+            <h5 class="card-title">KABIRA A</h5>
+            <p class="role">DevOps & Deployment Engineer</p>
+            <p class="role">Deploys the project online, manages servers, and automates workflows.</p>
+
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card team-card text-center p-3">
+          <img src="{% static 'accounts/imgs/reshika.jpg' %}" alt="reshika" class="team-img">
+          <div class="card-body">
+            <h5 class="card-title">RESHIKA M</h5>
+            <p class="role">Testing & QA Engineer</p>
+            <p class="role">Tests all features, finds and reports bugs, and ensures cross-device compatibility and performance.
+
+</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card team-card text-center p-3">
+          <img src="{% static 'accounts/imgs/pramisha.jpg' %}" alt="pramisha" class="team-img">
+          <div class="card-body">
+            <h5 class="card-title">PRAMISHA P</h5>
+            <p class="role">Database Manager</p>
+            <p class="role">Designs and manages the database schema; ensures data integrity and relationships using Django ORM.
+
+</p>
+          </div>
+        </div>
+      </div>
+      
+
+      <!-- Add more team members below as needed -->
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
